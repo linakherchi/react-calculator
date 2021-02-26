@@ -32,3 +32,6 @@ table {
 input {
   -webkit-appearance: none;
   border-radius: 0; }
+
+#root h1 {
+  color: red; }
