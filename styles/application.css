@@ -36,7 +36,24 @@ input {
 #root {
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.3); }
-
-h1 {
-  color: black; }
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Helvetica";
+  font-weight: 100; }
+  #root .calculator {
+    background-color: #1C1C1C;
+    height: 63vh;
+    width: 18vw;
+    border-radius: 15px;
+    padding: 2vh 1vw 1vh 1vw;
+    border: solid 2px white; }
+    #root .calculator .calculator-screen {
+      color: white;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 20%;
+      border: solid 2px white;
+      font-size: 50px; }

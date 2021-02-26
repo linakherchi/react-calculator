@@ -1,8 +1,30 @@
 #root {
     width: 100vw;
     height: 100vh;
-    background-color: transparentize($black, 0.7)
-}
-h1{
-    color: black;
+    background-color: transparentize($black, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: $helvetica; 
+    font-weight: 100;
+    
+
+    .calculator{
+        background-color: $eerie-black;
+        height: 63vh;
+        width: 18vw;
+        border-radius: 15px;
+        padding: 2vh 1vw 1vh 1vw;
+        border: solid 2px white;
+
+        .calculator-screen{
+            color: $white;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 20%;
+            border: solid 2px white;
+            font-size: 50px;
+        }
+    }
 }
