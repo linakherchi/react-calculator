@@ -4,6 +4,7 @@
   "description": "This is repository is an implementation of an Apple Calculator. It supports addition, subtraction, multiplication, and division. Enjoy it!",
   "main": "index.js",
   "scripts": {
+    "start": "webpack --watch --mode=development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
