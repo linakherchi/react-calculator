@@ -1,8 +1,11 @@
 import React from "react";
 import OperatorButton from './operator-button';
+import CustomButton from './custom-button';
+import NumberButton from './number-button';
 
 export default class Calculator extends React.Component{
     constructor(){
+        super()
         this.state = {currentNumberShownInCalculator: 0}
     }
     render(){
@@ -19,7 +22,7 @@ export default class Calculator extends React.Component{
                     <ul className="operators-section">
                         {operators.map((operator) => {
                             return (
-                                <OperatorButton operator={operator}/>
+                                <OperatorButton key={operator} operator={operator}/>
                             )
                         })}
                     </ul>
@@ -28,7 +31,7 @@ export default class Calculator extends React.Component{
                         <ul>
                             {customButtons.map((customButton) => {
                                 return (
-                                    <CustomButton customButton={customButton}/>
+                                    <CustomButton key={customButton} customButton={customButton}/>
                                 )
                             })}
                         </ul>
@@ -36,7 +39,7 @@ export default class Calculator extends React.Component{
                         <ul>
                             {numbers.map(number => {
                                 return (
-                                    <NumberButton number={number}/>
+                                    <NumberButton key={number} number={number}/>
                                 )
                             })}
                         </ul>
