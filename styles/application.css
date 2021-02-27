@@ -77,15 +77,15 @@ input {
           display: flex;
           justify-content: space-evenly; }
           #root .calculator .calculator-board .non-operators-section .custom-operators button {
-            background-color: #D4D4D2; }
+            background-color: #D4D4D2;
+            color: black; }
         #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
           display: flex;
           flex-wrap: wrap;
           flex-direction: column;
           justify-content: space-evenly; }
           #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers button {
-            background-color: #505050;
-            color: white; }
+            background-color: #505050; }
         #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
           height: 60%;
           border: pink solid 2px; }
@@ -100,10 +100,13 @@ button {
   font-size: 30px;
   font-weight: 400;
   font-family: "Helvetica";
+  background-color: #505050;
+  color: white;
   align-self: center;
   outline: none;
   cursor: pointer;
-  border: none; }
+  border: none;
+  color: white; }
 
 .colorize-operators {
   background-color: #FF9500;

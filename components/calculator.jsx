@@ -43,10 +43,10 @@ export default class Calculator extends React.Component{
                         </ul>
 
                         <ul className="outliers">
-                            <button className="colorize-numbers">
+                            <button id="outlier-zero">
                                 <NumberButton number={"0"}/>
                             </button>
-                            <button className="colorize-numbers">.</button>
+                            <button>.</button>
                         </ul>
                     </section>
 
