@@ -6,13 +6,19 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
     constructor(){
         super()
-        this.state = {currentNumberShownInCalculator: 0};
+        this.state = {currentNumberShownInCalculator: "0"};
         this.handleNumbers = this.handleNumbers.bind(this);
     }
 
     handleNumbers(e){
         if (e.target.localName !== "ul"){
-            this.setState({currentNumberShownInCalculator: e.target.innerHTML})
+            this.setState((prevState) => {
+                if (prevState.currentNumberShownInCalculator === "0" && prevState.currentNumberShownInCalculator.length === 1){
+                    return {currentNumberShownInCalculator: e.target.innerHTML}
+                } else {
+                    return {currentNumberShownInCalculator: prevState.currentNumberShownInCalculator + e.target.innerHTML}
+                }
+            })
         }
     }
 
@@ -24,7 +30,7 @@ export default class Calculator extends React.Component{
         return(
             <section className="calculator">
 
-                <div className="calculator-screen">{this.state.currentNumberShownInCalculator}</div>
+                <div className="calculator-screen">{Number(this.state.currentNumberShownInCalculator).toLocaleString()}</div>
 
                 <div className="calculator-board">
                     
