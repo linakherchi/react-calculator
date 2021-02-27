@@ -47,33 +47,28 @@ input {
     height: 60vh;
     width: 20vw;
     border-radius: 15px;
-    padding: 2vh 1vw 1vh 1vw;
-    border: solid 2px white; }
+    padding: 2vh 1vw 1vh 1vw; }
     #root .calculator .calculator-screen {
       color: white;
       display: flex;
       justify-content: flex-end;
       align-items: center;
       height: 20%;
-      border: solid 2px white;
       font-size: 50px; }
     #root .calculator .calculator-board {
       display: flex;
       height: 80%; }
       #root .calculator .calculator-board .operators-section {
         width: 25%;
-        border: solid green 2px;
         display: flex;
         flex-direction: column;
         justify-content: space-around; }
       #root .calculator .calculator-board .non-operators-section {
         width: 75%;
-        border: solid blue 2px;
         display: flex;
         flex-direction: column; }
         #root .calculator .calculator-board .non-operators-section .custom-operators {
           height: 20%;
-          border: pink solid 2px;
           display: flex;
           justify-content: space-evenly; }
           #root .calculator .calculator-board .non-operators-section .custom-operators button {
@@ -83,15 +78,13 @@ input {
           display: flex;
           flex-wrap: wrap;
           flex-direction: column;
-          justify-content: space-evenly; }
+          justify-content: space-around; }
           #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers button {
             background-color: #505050; }
         #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
-          height: 60%;
-          border: pink solid 2px; }
+          height: 60%; }
         #root .calculator .calculator-board .non-operators-section .outliers {
           height: 20%;
-          border: pink solid 2px;
           display: flex;
           justify-content: space-around; }
           #root .calculator .calculator-board .non-operators-section .outliers #outlier-zero {

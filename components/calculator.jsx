@@ -6,8 +6,14 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
     constructor(){
         super()
-        this.state = {currentNumberShownInCalculator: 0}
+        this.state = {currentNumberShownInCalculator: 0};
+        this.handleNumbers = this.handleNumbers.bind(this);
     }
+
+    handleNumbers(e){
+        console.log(e.target.innerHTML)
+    }
+
     render(){
         const operators = ["÷", "x", "-", "+", "="];
         const customButtons = ["AC", "+/-", "%"];
@@ -32,7 +38,7 @@ export default class Calculator extends React.Component{
                             })}
                         </ul>
 
-                        <ul className="one-to-nine-numbers">
+                        <ul className="one-to-nine-numbers" onClick={this.handleNumbers}>
                             {numbers.map(number => {
                                 return (
                                     <button key={number}>

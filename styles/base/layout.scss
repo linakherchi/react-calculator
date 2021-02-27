@@ -15,7 +15,7 @@
         width: 20vw;
         border-radius: 15px;
         padding: 2vh 1vw 1vh 1vw;
-        border: solid 2px white;
+        // border: solid 2px white;
 
         .calculator-screen{
             color: $white;
@@ -23,7 +23,7 @@
             justify-content: flex-end;
             align-items: center;
             height: 20%;
-            border: solid 2px white;
+            // border: solid 2px white;
             font-size: 50px;
         }
 
@@ -33,7 +33,7 @@
 
             .operators-section {
                 width: 25%;
-                border: solid green 2px;
+                // border: solid green 2px;
                 display: flex;
                 flex-direction: column;
                 justify-content: space-around;
@@ -41,13 +41,13 @@
 
             .non-operators-section {
                 width: 75%;
-                border: solid blue 2px;
+                // border: solid blue 2px;
                 display: flex;
                 flex-direction: column;
 
                 .custom-operators{
                     height: 20%;
-                    border: pink solid 2px; 
+                    // border: pink solid 2px; 
                     display: flex;
                     justify-content: space-evenly;
 
@@ -61,7 +61,7 @@
                     display: flex;
                     flex-wrap: wrap;
                     flex-direction: column;
-                    justify-content: space-evenly;
+                    justify-content: space-around;
 
                     button {
                         background-color: $dark-liver;
@@ -70,12 +70,12 @@
 
                 .one-to-nine-numbers{
                     height: 60%;
-                    border: pink solid 2px;
+                    // border: pink solid 2px;
                 }
 
                 .outliers{
                     height: 20%;
-                    border: pink solid 2px;
+                    // border: pink solid 2px;
                     display: flex;
                     justify-content: space-around;
 
