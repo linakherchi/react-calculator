@@ -36,7 +36,7 @@
                 border: solid green 2px;
                 display: flex;
                 flex-direction: column;
-                justify-content: space-evenly;
+                justify-content: space-around;
             }
 
             .non-operators-section {
@@ -46,21 +46,26 @@
                 flex-direction: column;
 
                 .custom-operators{
-                    height: 25%;
-                    border: pink solid 2px;
-
-                    .one-to-nine-numbers{
-                        
-                    }
+                    height: 20%;
+                    border: pink solid 2px; 
+                    display: flex;
+                    justify-content: space-evenly;
                 }
 
                 .one-to-nine-numbers{
-                    height: 50%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                }
+
+                .one-to-nine-numbers{
+                    height: 60%;
                     border: pink solid 2px;
                 }
 
                 .outliers{
-                    height: 25%;
+                    height: 20%;
                     border: pink solid 2px;
                 }
             }
@@ -70,8 +75,10 @@
 
 button {
     border-radius: 50%;
-    height: 15%;
-    width: 80%;
+    // height: 15%;
+    // width: 80%;
+    width: 4.5vw;
+    height: 7.5vh;
     font-size: 30px;
     font-weight: 400;
     font-family: $helvetica; 

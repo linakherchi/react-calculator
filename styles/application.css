@@ -65,26 +65,33 @@ input {
         border: solid green 2px;
         display: flex;
         flex-direction: column;
-        justify-content: space-evenly; }
+        justify-content: space-around; }
       #root .calculator .calculator-board .non-operators-section {
         width: 75%;
         border: solid blue 2px;
         display: flex;
         flex-direction: column; }
         #root .calculator .calculator-board .non-operators-section .custom-operators {
-          height: 25%;
-          border: pink solid 2px; }
+          height: 20%;
+          border: pink solid 2px;
+          display: flex;
+          justify-content: space-evenly; }
         #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
-          height: 50%;
+          display: flex;
+          flex-wrap: wrap;
+          flex-direction: column;
+          justify-content: space-evenly; }
+        #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
+          height: 60%;
           border: pink solid 2px; }
         #root .calculator .calculator-board .non-operators-section .outliers {
-          height: 25%;
+          height: 20%;
           border: pink solid 2px; }
 
 button {
   border-radius: 50%;
-  height: 15%;
-  width: 80%;
+  width: 4.5vw;
+  height: 7.5vh;
   font-size: 30px;
   font-weight: 400;
   font-family: "Helvetica";
@@ -97,3 +104,10 @@ button {
   background-color: #FF9500;
   color: white;
   font-weight: thin; }
+
+.colorize-one-to-nine {
+  background-color: #505050;
+  color: white; }
+
+.colorize-custom-buttons {
+  background-color: #D4D4D2; }

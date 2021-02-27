@@ -11,7 +11,7 @@ export default class Calculator extends React.Component{
     render(){
         const operators = ["÷", "x", "-", "+", "="];
         const customButtons = ["AC", "+/-", "%"];
-        const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        const numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
 
         return(
             <section className="calculator">
@@ -23,19 +23,23 @@ export default class Calculator extends React.Component{
 
                     <section className="non-operators-section">
                         <ul className="custom-operators">
-                            {/* {customButtons.map((customButton) => {
+                            {customButtons.map((customButton) => {
                                 return (
-                                    <CustomButton key={customButton} customButton={customButton}/>
+                                    <button className="colorize-custom-buttons" key={customButton}>
+                                        <CustomButton customButton={customButton}/>
+                                    </button>
                                 )
-                            })} */}
+                            })}
                         </ul>
 
                         <ul className="one-to-nine-numbers">
-                            {/* {numbers.map(number => {
+                            {numbers.map(number => {
                                 return (
-                                    <NumberButton key={number} number={number}/>
+                                    <button className="colorize-one-to-nine" key={number}>
+                                        <NumberButton key={number} number={number}/>
+                                    </button>  
                                 )
-                            })} */}
+                            })}
                         </ul>
 
                         <ul className="outliers">
