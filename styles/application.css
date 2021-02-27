@@ -91,7 +91,12 @@ input {
           border: pink solid 2px; }
         #root .calculator .calculator-board .non-operators-section .outliers {
           height: 20%;
-          border: pink solid 2px; }
+          border: pink solid 2px;
+          display: flex;
+          justify-content: space-around; }
+          #root .calculator .calculator-board .non-operators-section .outliers #outlier-zero {
+            width: 9vw;
+            border-radius: 30px; }
 
 button {
   border-radius: 50%;
