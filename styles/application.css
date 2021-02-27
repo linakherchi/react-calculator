@@ -78,7 +78,9 @@ button {
   font-weight: 400;
   font-family: "Helvetica";
   align-self: center;
-  outline: none; }
+  outline: none;
+  cursor: pointer;
+  border: none; }
 
 .colorize-operators-section {
   background-color: #FF9500;
