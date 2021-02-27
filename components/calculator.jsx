@@ -69,8 +69,8 @@ export default class Calculator extends React.Component{
     return Number(beforeDecimal).toLocaleString() + "." + afterDecimal
   }
 
-  performOperation(){
-
+  performOperation(e){
+    
   }
 
   render(){
