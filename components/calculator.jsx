@@ -25,7 +25,7 @@ export default class Calculator extends React.Component{
                         <ul className="custom-operators">
                             {customButtons.map((customButton) => {
                                 return (
-                                    <button className="colorize-custom-buttons" key={customButton}>
+                                    <button key={customButton}>
                                         <CustomButton customButton={customButton}/>
                                     </button>
                                 )
@@ -35,7 +35,7 @@ export default class Calculator extends React.Component{
                         <ul className="one-to-nine-numbers">
                             {numbers.map(number => {
                                 return (
-                                    <button className="colorize-one-to-nine" key={number}>
+                                    <button key={number}>
                                         <NumberButton key={number} number={number}/>
                                     </button>  
                                 )
@@ -43,8 +43,10 @@ export default class Calculator extends React.Component{
                         </ul>
 
                         <ul className="outliers">
-                            {/* <button>0</button>
-                            <button>.</button> */}
+                            <button className="colorize-numbers">
+                                <NumberButton number={"0"}/>
+                            </button>
+                            <button className="colorize-numbers">.</button>
                         </ul>
                     </section>
 

@@ -50,6 +50,10 @@
                     border: pink solid 2px; 
                     display: flex;
                     justify-content: space-evenly;
+
+                    button {
+                        background-color: $light-gray;
+                    }
                 }
 
                 .one-to-nine-numbers{
@@ -57,6 +61,11 @@
                     flex-wrap: wrap;
                     flex-direction: column;
                     justify-content: space-evenly;
+
+                    button {
+                        background-color: $dark-liver;
+                        color: $white;
+                    }
                 }
 
                 .one-to-nine-numbers{
@@ -75,8 +84,6 @@
 
 button {
     border-radius: 50%;
-    // height: 15%;
-    // width: 80%;
     width: 4.5vw;
     height: 7.5vh;
     font-size: 30px;
