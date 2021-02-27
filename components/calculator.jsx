@@ -16,7 +16,12 @@ export default class Calculator extends React.Component{
                 if (prevState.currentNumberShownInCalculator === "0" && prevState.currentNumberShownInCalculator.length === 1){
                     return {currentNumberShownInCalculator: e.target.innerHTML}
                 } else {
-                    return {currentNumberShownInCalculator: prevState.currentNumberShownInCalculator + e.target.innerHTML}
+                    const newNumber = prevState.currentNumberShownInCalculator + e.target.innerHTML;
+                    if (newNumber.length === 10){
+                        return {currentNumberShownInCalculator: prevState.currentNumberShownInCalculator}
+                    }else {
+                        return {currentNumberShownInCalculator: prevState.currentNumberShownInCalculator + e.target.innerHTML}
+                    }  
                 }
             })
         }
@@ -27,6 +32,7 @@ export default class Calculator extends React.Component{
         const customButtons = ["AC", "+/-", "%"];
         const numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
 
+
         return(
             <section className="calculator">
 
@@ -34,7 +40,6 @@ export default class Calculator extends React.Component{
 
                 <div className="calculator-board">
                     
-
                     <section className="non-operators-section">
                         <ul className="custom-operators">
                             {customButtons.map((customButton) => {
