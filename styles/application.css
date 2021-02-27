@@ -78,3 +78,8 @@ button {
   font-weight: 400;
   font-family: "Helvetica";
   align-self: center; }
+
+.colorize-operators-section {
+  background-color: #FF9500;
+  color: white;
+  font-weight: thin; }
