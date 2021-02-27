@@ -11,7 +11,9 @@ export default class Calculator extends React.Component{
     }
 
     handleNumbers(e){
-        console.log(e.target.innerHTML)
+        if (e.target.localName !== "ul"){
+            this.setState({currentNumberShownInCalculator: e.target.innerHTML})
+        }
     }
 
     render(){
@@ -48,7 +50,7 @@ export default class Calculator extends React.Component{
                             })}
                         </ul>
 
-                        <ul className="outliers">
+                        <ul className="outliers" onClick={this.handleNumbers}>
                             <button id="outlier-zero">
                                 <NumberButton number={"0"}/>
                             </button>
