@@ -43,13 +43,17 @@ export default class Calculator extends React.Component{
                             <button>.</button>
                         </ul> */}
                     </section>
+
                     <ul className="operators-section">
                         {operators.map((operator) => {
                             return (
-                                <OperatorButton key={operator} operator={operator}/>
+                                <button className="colorize-operators-section" key={operator}>
+                                    <OperatorButton operator={operator}/>
+                                </button>
                             )
                         })}
                     </ul>
+
                 </div>
             </section>
         )
