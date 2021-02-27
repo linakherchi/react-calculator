@@ -8,6 +8,7 @@ export default class Calculator extends React.Component{
         super()
         this.state = {currentNumberShownInCalculator: "0"};
         this.handleNumbers = this.handleNumbers.bind(this);
+        this.handleDecimal = this.handleDecimal.bind(this);
     }
 
     handleNumbers(e){
@@ -27,16 +28,32 @@ export default class Calculator extends React.Component{
         }
     }
 
+    handleDecimal(){
+        if (!this.state.currentNumberShownInCalculator.includes(".")){
+            this.setState((prevState) => {
+                return {currentNumberShownInCalculator: prevState.currentNumberShownInCalculator + "."}
+            })
+        }
+    }
+
+    displayDecimalNumber(){
+        const splitNumberOnDecimal = this.state.currentNumberShownInCalculator.split(".");
+        const beforeDecimal = splitNumberOnDecimal[0];
+        const afterDecimal = splitNumberOnDecimal[1];
+        return Number(beforeDecimal).toLocaleString() + "." + afterDecimal
+    }
+
     render(){
         const operators = ["÷", "x", "-", "+", "="];
         const customButtons = ["AC", "+/-", "%"];
         const numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
-
+        const isDecimal = this.state.currentNumberShownInCalculator.includes(".");
+        const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.currentNumberShownInCalculator).toLocaleString();
 
         return(
             <section className="calculator">
 
-                <div className="calculator-screen">{Number(this.state.currentNumberShownInCalculator).toLocaleString()}</div>
+                <div className="calculator-screen">{ calculatorScreen}</div>
 
                 <div className="calculator-board">
                     
@@ -61,11 +78,11 @@ export default class Calculator extends React.Component{
                             })}
                         </ul>
 
-                        <ul className="outliers" onClick={this.handleNumbers}>
-                            <button id="outlier-zero">
-                                <NumberButton number={"0"}/>
+                        <ul className="outliers">
+                            <button id="outlier-zero" onClick={this.handleNumbers}>
+                                <NumberButton number={"0"} />
                             </button>
-                            <button>.</button>
+                            <button onClick={this.handleDecimal}>.</button>
                         </ul>
                     </section>
 
