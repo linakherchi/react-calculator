@@ -22,32 +22,32 @@ export default class Calculator extends React.Component{
                     
 
                     <section className="non-operators-section">
-                        {/* <ul>
-                            {customButtons.map((customButton) => {
+                        <ul className="custom-operators">
+                            {/* {customButtons.map((customButton) => {
                                 return (
                                     <CustomButton key={customButton} customButton={customButton}/>
                                 )
-                            })}
+                            })} */}
                         </ul>
 
-                        <ul>
-                            {numbers.map(number => {
+                        <ul className="one-to-nine-numbers">
+                            {/* {numbers.map(number => {
                                 return (
                                     <NumberButton key={number} number={number}/>
                                 )
-                            })}
+                            })} */}
                         </ul>
 
-                        <ul>
-                            <button>0</button>
-                            <button>.</button>
-                        </ul> */}
+                        <ul className="outliers">
+                            {/* <button>0</button>
+                            <button>.</button> */}
+                        </ul>
                     </section>
 
-                    <ul className="operators-section">
+                    <ul className="operators-section" > {/*Click={this.switchColors}  */}
                         {operators.map((operator) => {
                             return (
-                                <button className="colorize-operators-section" key={operator}>
+                                <button className="colorize-operators" key={operator}>
                                     <OperatorButton operator={operator}/>
                                 </button>
                             )

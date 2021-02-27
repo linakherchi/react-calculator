@@ -42,7 +42,27 @@
             .non-operators-section {
                 width: 75%;
                 border: solid blue 2px;
+                display: flex;
+                flex-direction: column;
 
+                .custom-operators{
+                    height: 25%;
+                    border: pink solid 2px;
+
+                    .one-to-nine-numbers{
+                        
+                    }
+                }
+
+                .one-to-nine-numbers{
+                    height: 50%;
+                    border: pink solid 2px;
+                }
+
+                .outliers{
+                    height: 25%;
+                    border: pink solid 2px;
+                }
             }
         }
     }

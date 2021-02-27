@@ -68,7 +68,18 @@ input {
         justify-content: space-evenly; }
       #root .calculator .calculator-board .non-operators-section {
         width: 75%;
-        border: solid blue 2px; }
+        border: solid blue 2px;
+        display: flex;
+        flex-direction: column; }
+        #root .calculator .calculator-board .non-operators-section .custom-operators {
+          height: 25%;
+          border: pink solid 2px; }
+        #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
+          height: 50%;
+          border: pink solid 2px; }
+        #root .calculator .calculator-board .non-operators-section .outliers {
+          height: 25%;
+          border: pink solid 2px; }
 
 button {
   border-radius: 50%;
@@ -82,7 +93,7 @@ button {
   cursor: pointer;
   border: none; }
 
-.colorize-operators-section {
+.colorize-operators {
   background-color: #FF9500;
   color: white;
   font-weight: thin; }
