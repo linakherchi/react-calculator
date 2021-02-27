@@ -19,16 +19,10 @@ export default class Calculator extends React.Component{
                 <div className="calculator-screen">{this.state.currentNumberShownInCalculator}</div>
 
                 <div className="calculator-board">
-                    <ul className="operators-section">
-                        {operators.map((operator) => {
-                            return (
-                                <OperatorButton key={operator} operator={operator}/>
-                            )
-                        })}
-                    </ul>
+                    
 
                     <section className="non-operators-section">
-                        <ul>
+                        {/* <ul>
                             {customButtons.map((customButton) => {
                                 return (
                                     <CustomButton key={customButton} customButton={customButton}/>
@@ -47,8 +41,15 @@ export default class Calculator extends React.Component{
                         <ul>
                             <button>0</button>
                             <button>.</button>
-                        </ul>
+                        </ul> */}
                     </section>
+                    <ul className="operators-section">
+                        {operators.map((operator) => {
+                            return (
+                                <OperatorButton key={operator} operator={operator}/>
+                            )
+                        })}
+                    </ul>
                 </div>
             </section>
         )

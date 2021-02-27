@@ -44,8 +44,8 @@ input {
   font-weight: 100; }
   #root .calculator {
     background-color: #1C1C1C;
-    height: 63vh;
-    width: 18vw;
+    height: 60vh;
+    width: 20vw;
     border-radius: 15px;
     padding: 2vh 1vw 1vh 1vw;
     border: solid 2px white; }
@@ -57,3 +57,24 @@ input {
       height: 20%;
       border: solid 2px white;
       font-size: 50px; }
+    #root .calculator .calculator-board {
+      display: flex;
+      height: 80%; }
+      #root .calculator .calculator-board .operators-section {
+        width: 25%;
+        border: solid green 2px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly; }
+      #root .calculator .calculator-board .non-operators-section {
+        width: 75%;
+        border: solid blue 2px; }
+
+button {
+  border-radius: 50%;
+  height: 15%;
+  width: 80%;
+  font-size: 30px;
+  font-weight: 400;
+  font-family: "Helvetica";
+  align-self: center; }
