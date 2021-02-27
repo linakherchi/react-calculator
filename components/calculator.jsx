@@ -6,22 +6,46 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
     constructor(){
         super()
-        this.state = {currentNumberShownInCalculator: "0"};
+        this.state = {currentNumber: "0"};
         this.handleNumbers = this.handleNumbers.bind(this);
         this.handleDecimal = this.handleDecimal.bind(this);
+        this.numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
+
+    }
+
+    componentDidMount(){
+        document.addEventListener("keydown", this.handleNumbers)
+    }
+
+    setNewDigitBasedOnEventType(e){
+        if (e.type === "keydown"){
+            if (!(this.numbers.includes(String(e.key)))){
+                return "";
+            } else {
+               return e.key;
+            }
+        }  else {
+            return e.target.innerHTML;
+        }
     }
 
     handleNumbers(e){
+        const newDigit = this.setNewDigitBasedOnEventType(e)
+
         if (e.target.localName !== "ul"){
             this.setState((prevState) => {
-                if (prevState.currentNumberShownInCalculator === "0" && prevState.currentNumberShownInCalculator.length === 1){
-                    return {currentNumberShownInCalculator: e.target.innerHTML}
+                if (prevState.currentNumber === "0" && prevState.currentNumber.length === 1){
+                    if (e.type === "keydown"){
+                        return {currentNumber: e.key}
+                    } else if (e.type === "click"){
+                        return {currentNumber: e.target.innerHTML}
+                    }  
                 } else {
-                    const newNumber = prevState.currentNumberShownInCalculator + e.target.innerHTML;
-                    if (newNumber.length === 10){
-                        return {currentNumberShownInCalculator: prevState.currentNumberShownInCalculator}
+                    let newNumber = prevState.currentNumber + newDigit;
+                    if (newNumber.split(".").join("").length === 10){
+                        return {currentNumber: prevState.currentNumber}
                     }else {
-                        return {currentNumberShownInCalculator: prevState.currentNumberShownInCalculator + e.target.innerHTML}
+                        return {currentNumber: newNumber}
                     }  
                 }
             })
@@ -29,15 +53,15 @@ export default class Calculator extends React.Component{
     }
 
     handleDecimal(){
-        if (!this.state.currentNumberShownInCalculator.includes(".")){
+        if (!this.state.currentNumber.includes(".")){
             this.setState((prevState) => {
-                return {currentNumberShownInCalculator: prevState.currentNumberShownInCalculator + "."}
+                return {currentNumber: prevState.currentNumber + "."}
             })
         }
     }
 
     displayDecimalNumber(){
-        const splitNumberOnDecimal = this.state.currentNumberShownInCalculator.split(".");
+        const splitNumberOnDecimal = this.state.currentNumber.split(".");
         const beforeDecimal = splitNumberOnDecimal[0];
         const afterDecimal = splitNumberOnDecimal[1];
         return Number(beforeDecimal).toLocaleString() + "." + afterDecimal
@@ -46,9 +70,8 @@ export default class Calculator extends React.Component{
     render(){
         const operators = ["÷", "x", "-", "+", "="];
         const customButtons = ["AC", "+/-", "%"];
-        const numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
-        const isDecimal = this.state.currentNumberShownInCalculator.includes(".");
-        const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.currentNumberShownInCalculator).toLocaleString();
+        const isDecimal = this.state.currentNumber.includes(".");
+        const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.currentNumber).toLocaleString();
 
         return(
             <section className="calculator">
@@ -69,7 +92,7 @@ export default class Calculator extends React.Component{
                         </ul>
 
                         <ul className="one-to-nine-numbers" onClick={this.handleNumbers}>
-                            {numbers.map(number => {
+                            {this.numbers.map(number => {
                                 return (
                                     <button key={number}>
                                         <NumberButton key={number} number={number}/>
