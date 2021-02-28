@@ -70,13 +70,13 @@ export default class Calculator extends React.Component{
 
   performOperation(e){
     if (e.target.innerHTML === "+"){
-      this.setState({addition: true});
+      this.setState({addition: true, substraction: false, multiplication: false, division: false});
     } else if (e.target.innerHTML === "-"){
-      this.setState({substraction: true})
+      this.setState({addition: false, substraction: true, multiplication: false, division: false})
     } else if (e.target.innerHTML === "x"){
-      this.setState({multiplication: true})
+      this.setState({addition: false, substraction: false, multiplication: true, division: false})
     } else if (e.target.innerHTML === "÷"){
-      this.setState({division: true})
+      this.setState({addition: false, substraction: false, multiplication: false, division: true})
     }
   }
 
@@ -90,7 +90,7 @@ export default class Calculator extends React.Component{
     return(
       <section className="calculator">
 
-        <div className="calculator-screen">{ calculatorScreen}</div>
+        <div className="calculator-screen">{calculatorScreen}</div>
 
         <div className="calculator-board">
           
@@ -123,7 +123,7 @@ export default class Calculator extends React.Component{
             </ul>
           </section>
 
-          <ul className="operators-section" onClick={this.performOperation}> {/*Click={this.switchColors}  */}
+          <ul className="operators-section" onClick={this.performOperation}> 
             {operators.map((operator) => {
               return (
                 <button className="colorize-operators" key={operator}>
