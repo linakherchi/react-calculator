@@ -6,7 +6,7 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
   constructor(){
     super()
-    this.state = {currentNumber: "0"};
+    this.state = {displayedNumber: "0", computedNumber: 0, addition: false, substraction: false, division: false};
     this.handleNumbers = this.handleNumbers.bind(this);
     this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
@@ -23,18 +23,18 @@ export default class Calculator extends React.Component{
 
     if (e.target.localName !== "ul"){
       this.setState((prevState) => {
-        if (prevState.currentNumber === "0" && prevState.currentNumber.length === 1){
+        if (prevState.displayedNumber === "0" && prevState.displayedNumber.length === 1){
           if (e.type === "keydown" && newDigit){
-            return {currentNumber: e.key}
+            return {displayedNumber: e.key}
           } else if (e.type === "click"){
-            return {currentNumber: e.target.innerHTML}
+            return {displayedNumber: e.target.innerHTML}
           }  
         } else {
-          let newNumber = prevState.currentNumber + newDigit;
+          let newNumber = prevState.displayedNumber + newDigit;
           if (newNumber.split(".").join("").length === 10){
-            return {currentNumber: prevState.currentNumber}
+            return {displayedNumber: prevState.displayedNumber}
           }else {
-            return {currentNumber: newNumber}
+            return {displayedNumber: newNumber}
           }  
         }
       })
@@ -43,7 +43,6 @@ export default class Calculator extends React.Component{
 
   setNewDigitBasedOnEventType(e){
     if (e.type === "keydown"){
-        // console.log(this.numbers.includes(String(e.key)))
       if (!(this.numbers.includes(String(e.key)))){
         return "";
       } else {
@@ -55,29 +54,38 @@ export default class Calculator extends React.Component{
   }
 
   handleDecimal(){
-    if (!this.state.currentNumber.includes(".")){
+    if (!this.state.displayedNumber.includes(".")){
       this.setState((prevState) => {
-        return {currentNumber: prevState.currentNumber + "."}
+        return {displayedNumber: prevState.displayedNumber + "."}
       })
     }
   }
 
   displayDecimalNumber(){
-    const splitNumberOnDecimal = this.state.currentNumber.split(".");
+    const splitNumberOnDecimal = this.state.displayedNumber.split(".");
     const beforeDecimal = splitNumberOnDecimal[0];
     const afterDecimal = splitNumberOnDecimal[1];
     return Number(beforeDecimal).toLocaleString() + "." + afterDecimal
   }
 
   performOperation(e){
-    
+    if (e.target.innerHTML === "+"){
+      this.setState({addition: true});
+    } else if (e.target.innerHTML === "-"){
+      this.setState({substraction: true})
+    } else if (e.target.innerHTML === "x"){
+      this.setState({multiplication: true})
+    } else if (e.target.innerHTML === "÷"){
+      this.setState({division: true})
+    }
   }
 
   render(){
+    console.log(this.state)
     const operators = ["÷", "x", "-", "+", "="];
     const customButtons = ["AC", "+/-", "%"];
-    const isDecimal = this.state.currentNumber.includes(".");
-    const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.currentNumber).toLocaleString();
+    const isDecimal = this.state.displayedNumber.includes(".");
+    const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.displayedNumber).toLocaleString();
 
     return(
       <section className="calculator">

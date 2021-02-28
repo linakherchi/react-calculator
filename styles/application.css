@@ -54,7 +54,7 @@ input {
       justify-content: flex-end;
       align-items: center;
       height: 20%;
-      font-size: 50px; }
+      font-size: 3.5vw; }
     #root .calculator .calculator-board {
       display: flex;
       height: 80%; }
@@ -95,7 +95,7 @@ button {
   border-radius: 50%;
   width: 4.5vw;
   height: 7.5vh;
-  font-size: 30px;
+  font-size: 2vw;
   font-weight: 400;
   font-family: "Helvetica";
   background-color: #505050;
