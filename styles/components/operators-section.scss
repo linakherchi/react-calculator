@@ -3,3 +3,10 @@
     color: $white;
     font-weight: thin;
 }
+
+#switch-colors{
+    background-color: $white;
+    color: $vivid-gamboge;
+    transition: background-color .4s ease-out, color .4s ease-out;
+}
+

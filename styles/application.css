@@ -54,7 +54,7 @@ input {
       justify-content: flex-end;
       align-items: center;
       height: 20%;
-      font-size: 3.5vw; }
+      font-size: 50px; }
     #root .calculator .calculator-board {
       display: flex;
       height: 80%; }
@@ -95,7 +95,7 @@ button {
   border-radius: 50%;
   width: 4.5vw;
   height: 7.5vh;
-  font-size: 2vw;
+  font-size: 30px;
   font-weight: 400;
   font-family: "Helvetica";
   background-color: #505050;
@@ -110,3 +110,8 @@ button {
   background-color: #FF9500;
   color: white;
   font-weight: thin; }
+
+#switch-colors {
+  background-color: white;
+  color: #FF9500;
+  transition: background-color .4s ease-out, color .4s ease-out; }

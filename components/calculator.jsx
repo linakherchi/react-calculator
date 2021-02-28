@@ -6,7 +6,7 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
   constructor(){
     super()
-    this.state = {displayedNumber: "0", computedNumber: 0, addition: false, substraction: false, division: false};
+    this.state = {displayedNumber: "0", computedNumber: 0, addition: false, subtraction: false, division: false, multiplication: false};
     this.handleNumbers = this.handleNumbers.bind(this);
     this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
@@ -69,6 +69,8 @@ export default class Calculator extends React.Component{
   }
 
   performOperation(e){
+    console.log(e.target)
+    console.log(e.currentTarget)
     if (e.target.innerHTML === "+"){
       this.setState({addition: true, substraction: false, multiplication: false, division: false});
     } else if (e.target.innerHTML === "-"){
@@ -81,8 +83,7 @@ export default class Calculator extends React.Component{
   }
 
   render(){
-    console.log(this.state)
-    const operators = ["÷", "x", "-", "+", "="];
+    const operators = {division: "÷", multiplication:"x", substraction:"-", addition: "+", equals:"="};
     const customButtons = ["AC", "+/-", "%"];
     const isDecimal = this.state.displayedNumber.includes(".");
     const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.displayedNumber).toLocaleString();
@@ -124,10 +125,12 @@ export default class Calculator extends React.Component{
           </section>
 
           <ul className="operators-section" onClick={this.performOperation}> 
-            {operators.map((operator) => {
+            {Object.keys(operators).map((operator) => {
+              console.log(this.state)
+              console.log(operator)
               return (
-                <button className="colorize-operators" key={operator}>
-                  <OperatorButton operator={operator}/>
+                <button className={`colorize-operators`} id={`${this.state[operator] ? "switch-colors" : ""}`} key={operator}>
+                  <OperatorButton operator={operators[operator]}/>
                 </button>
               )
             })}
