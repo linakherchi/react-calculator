@@ -22,7 +22,10 @@ export default class Calculator extends React.Component{
     const newDigit = this.setNewDigitBasedOnEventType(e)
     if (this.state.addition){
       this.handleAddition(e.target.innerHTML)
-    } else {
+    } else if (this.state.subtraction){
+      this.handleSubtraction(e.target.innerHTML)
+    }else
+    {
       if (e.target.localName !== "ul"){
         this.setState((prevState) => {
           if (prevState.displayedNumber === "0" && prevState.displayedNumber.length === 1){
@@ -46,6 +49,10 @@ export default class Calculator extends React.Component{
 
   handleAddition(numberToDisplay){
     this.setState({addition: false, displayedNumber: numberToDisplay, computedNumber: Number(numberToDisplay) + this.state.computedNumber})
+  }
+
+  handleSubtraction(numberToDisplay){
+    this.setState({subtraction: false, displayedNumber: numberToDisplay, computedNumber: this.state.computedNumber - Number(numberToDisplay)})
   }
 
   setNewDigitBasedOnEventType(e){
@@ -78,22 +85,27 @@ export default class Calculator extends React.Component{
   performOperation(e){
     if (e.target.innerHTML === "+"){
       this.setState({addition: true, 
-                     substraction: false, 
+                     subtraction: false, 
                      multiplication: false, 
                      division: false, 
                      displayedNumber: String(this.state.computedNumber)
       });
     } else if (e.target.innerHTML === "-"){
-      this.setState({addition: false, substraction: true, multiplication: false, division: false})
+      this.setState({addition: false, 
+                     subtraction: true, 
+                     multiplication: false, 
+                     division: false,
+                     displayedNumber: String(this.state.computedNumber)
+                    })
     } else if (e.target.innerHTML === "x"){
-      this.setState({addition: false, substraction: false, multiplication: true, division: false})
+      this.setState({addition: false, subtraction: false, multiplication: true, division: false})
     } else if (e.target.innerHTML === "÷"){
-      this.setState({addition: false, substraction: false, multiplication: false, division: true})
+      this.setState({addition: false, subtraction: false, multiplication: false, division: true})
     }
   }
 
   render(){
-    const operators = {division: "÷", multiplication:"x", substraction:"-", addition: "+", equals:"="};
+    const operators = {division: "÷", multiplication:"x", subtraction:"-", addition: "+", equals:"="};
     const customButtons = ["AC", "+/-", "%"];
     const isDecimal = this.state.displayedNumber.includes(".");
     const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.displayedNumber).toLocaleString();
