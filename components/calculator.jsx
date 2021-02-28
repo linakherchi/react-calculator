@@ -29,14 +29,14 @@ export default class Calculator extends React.Component{
             if (e.type === "keydown" && newDigit){
               return {displayedNumber: e.key}
             } else if (e.type === "click"){
-              return {displayedNumber: e.target.innerHTML}
+              return {displayedNumber: e.target.innerHTML, computedNumber: Number(e.target.innerHTML)}
             }  
           } else {
             let newNumber = prevState.displayedNumber + newDigit;
             if (newNumber.split(".").join("").length === 10){
               return {displayedNumber: prevState.displayedNumber}
             }else {
-              return {displayedNumber: newNumber}
+              return {displayedNumber: newNumber, computedNumber: Number(newNumber)}
             }  
           }
         })
@@ -45,13 +45,7 @@ export default class Calculator extends React.Component{
   }
 
   handleAddition(numberToDisplay){
-    console.log(numberToDisplay)
-    console.log(this.state.computedNumber)
-    this.setState({addition: false, displayedNumber: numberToDisplay, computedNumber: Number(numberToDisplay) + this.state.computedNumber}, () => {
-      console.log("displayedNumber", this.state.displayedNumber)
-    console.log("computedNumber", this.state.computedNumber)
-    })
-    
+    this.setState({addition: false, displayedNumber: numberToDisplay, computedNumber: Number(numberToDisplay) + this.state.computedNumber})
   }
 
   setNewDigitBasedOnEventType(e){
@@ -87,6 +81,7 @@ export default class Calculator extends React.Component{
                      substraction: false, 
                      multiplication: false, 
                      division: false, 
+                     displayedNumber: String(this.state.computedNumber)
       });
     } else if (e.target.innerHTML === "-"){
       this.setState({addition: false, substraction: true, multiplication: false, division: false})
