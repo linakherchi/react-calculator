@@ -20,25 +20,38 @@ export default class Calculator extends React.Component{
 
   handleNumbers(e){
     const newDigit = this.setNewDigitBasedOnEventType(e)
-
-    if (e.target.localName !== "ul"){
-      this.setState((prevState) => {
-        if (prevState.displayedNumber === "0" && prevState.displayedNumber.length === 1){
-          if (e.type === "keydown" && newDigit){
-            return {displayedNumber: e.key}
-          } else if (e.type === "click"){
-            return {displayedNumber: e.target.innerHTML}
-          }  
-        } else {
-          let newNumber = prevState.displayedNumber + newDigit;
-          if (newNumber.split(".").join("").length === 10){
-            return {displayedNumber: prevState.displayedNumber}
-          }else {
-            return {displayedNumber: newNumber}
-          }  
-        }
-      })
+    if (this.state.addition){
+      this.handleAddition(e.target.innerHTML)
+    } else {
+      if (e.target.localName !== "ul"){
+        this.setState((prevState) => {
+          if (prevState.displayedNumber === "0" && prevState.displayedNumber.length === 1){
+            if (e.type === "keydown" && newDigit){
+              return {displayedNumber: e.key}
+            } else if (e.type === "click"){
+              return {displayedNumber: e.target.innerHTML}
+            }  
+          } else {
+            let newNumber = prevState.displayedNumber + newDigit;
+            if (newNumber.split(".").join("").length === 10){
+              return {displayedNumber: prevState.displayedNumber}
+            }else {
+              return {displayedNumber: newNumber}
+            }  
+          }
+        })
+      }
     }
+  }
+
+  handleAddition(numberToDisplay){
+    console.log(numberToDisplay)
+    console.log(this.state.computedNumber)
+    this.setState({addition: false, displayedNumber: numberToDisplay, computedNumber: Number(numberToDisplay) + this.state.computedNumber}, () => {
+      console.log("displayedNumber", this.state.displayedNumber)
+    console.log("computedNumber", this.state.computedNumber)
+    })
+    
   }
 
   setNewDigitBasedOnEventType(e){
@@ -69,10 +82,12 @@ export default class Calculator extends React.Component{
   }
 
   performOperation(e){
-    console.log(e.target)
-    console.log(e.currentTarget)
     if (e.target.innerHTML === "+"){
-      this.setState({addition: true, substraction: false, multiplication: false, division: false});
+      this.setState({addition: true, 
+                     substraction: false, 
+                     multiplication: false, 
+                     division: false, 
+      });
     } else if (e.target.innerHTML === "-"){
       this.setState({addition: false, substraction: true, multiplication: false, division: false})
     } else if (e.target.innerHTML === "x"){
@@ -126,8 +141,6 @@ export default class Calculator extends React.Component{
 
           <ul className="operators-section" onClick={this.performOperation}> 
             {Object.keys(operators).map((operator) => {
-              console.log(this.state)
-              console.log(operator)
               return (
                 <button className={`colorize-operators`} id={`${this.state[operator] ? "switch-colors" : ""}`} key={operator}>
                   <OperatorButton operator={operators[operator]}/>
