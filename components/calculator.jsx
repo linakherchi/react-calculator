@@ -6,7 +6,7 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
   constructor(){
     super()
-    this.state = {displayedNumber: "0", computedNumber: 0, addition: false, subtraction: false, division: false, multiplication: false};
+    this.state = {displayedNumber: "0", computedNumber: null, addition: false, subtraction: false, division: false, multiplication: false};
     this.handleNumbers = this.handleNumbers.bind(this);
     this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
@@ -48,12 +48,11 @@ export default class Calculator extends React.Component{
   }
 
   handleAddition(numberToDisplay){
-    // console.log("hi")
     this.setState({addition: false, displayedNumber: numberToDisplay})
   }
 
   handleSubtraction(numberToDisplay){
-    this.setState({subtraction: false, displayedNumber: numberToDisplay, computedNumber: this.state.computedNumber - Number(numberToDisplay)})
+    this.setState({subtraction: false, displayedNumber: numberToDisplay})
   }
 
   setNewDigitBasedOnEventType(e){
@@ -84,22 +83,21 @@ export default class Calculator extends React.Component{
   }
 
   performOperation(e){
-    console.log("displayedNumber", this.state.displayedNumber)
-    console.log("computedNumber", this.state.computedNumber)
     if (e.target.innerHTML === "+"){
       this.setState({addition: true, 
                      subtraction: false, 
                      multiplication: false, 
                      division: false, 
-                     computedNumber: Number(this.state.displayedNumber) + this.state.computedNumber,
-                     displayedNumber: String(Number(this.state.displayedNumber) + this.state.computedNumber)
+                     computedNumber: this.state.computedNumber ? Number(this.state.displayedNumber) + this.state.computedNumber : Number(this.state.displayedNumber),
+                     displayedNumber: this.state.computedNumber ? String(Number(this.state.displayedNumber) + this.state.computedNumber) : this.state.displayedNumber
       });
     } else if (e.target.innerHTML === "-"){
       this.setState({addition: false, 
                      subtraction: true, 
                      multiplication: false, 
                      division: false,
-                     displayedNumber: String(this.state.computedNumber)
+                     computedNumber:  this.state.computedNumber  === null ? Number(this.state.displayedNumber) : this.state.computedNumber - Number(this.state.displayedNumber) ,
+                     displayedNumber: this.state.computedNumber  === null ? this.state.displayedNumber : String(this.state.computedNumber - Number(this.state.displayedNumber))
                     })
     } else if (e.target.innerHTML === "x"){
       this.setState({addition: false, subtraction: false, multiplication: true, division: false})
