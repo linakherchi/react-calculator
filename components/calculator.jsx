@@ -6,110 +6,50 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
   constructor(){
     super()
-    this.state = {displayedNumber: "0", computedNumber: null, addition: false, subtraction: false, division: false, multiplication: false};
+    this.state = {displayedNumber: 0, computedNumber: null, addition: false, subtraction: false, division: false, multiplication: false};
     this.handleNumbers = this.handleNumbers.bind(this);
     this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
     this.numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
 
   }
-
-  componentDidMount(){
-    document.addEventListener("keydown", this.handleNumbers)
-  }
+ // 1 => DP 1  CP 1
+ // + => DP 1  CP 1
+ // 2 => DP 2  CP 3
+ // + => DP 3  CP 3
+ // 5 => DP 5  CP 8 
+ 
 
   handleNumbers(e){
-    const newDigit = this.setNewDigitBasedOnEventType(e)
-    if (this.state.addition){
-      this.handleAddition(e.target.innerHTML)
-    } else if (this.state.subtraction){
-      this.handleSubtraction(e.target.innerHTML)
-    }else
-    {
-      if (e.target.localName !== "ul"){
-        this.setState((prevState) => {
-          if (prevState.displayedNumber === "0" && prevState.displayedNumber.length === 1){
-            if (e.type === "keydown" && newDigit){
-              return {displayedNumber: e.key}
-            } else if (e.type === "click"){
-              return {displayedNumber: e.target.innerHTML}
-            }  
-          } else {
-            let newNumber = prevState.displayedNumber + newDigit;
-            if (newNumber.split(".").join("").length === 10){
-              return {displayedNumber: prevState.displayedNumber}
-            }else {
-              return {displayedNumber: newNumber}
-            }  
-          }
-        })
+    this.setState((prevState) => {
+      if (prevState.displayedNumber === 0 && "" + + prevState.displayedNumber.length === 1){
+        return {displayedNumber: Number(e.target.innerHTML)}
+      } else {
+        return {displayedNumber: Number("" + prevState.displayedNumber + e.target.innerHTML)}
       }
-    }
-  }
+    })
+}
 
-  handleAddition(numberToDisplay){
-    this.setState({addition: false, displayedNumber: numberToDisplay})
-  }
-
-  handleSubtraction(numberToDisplay){
-    this.setState({subtraction: false, displayedNumber: numberToDisplay})
-  }
 
   setNewDigitBasedOnEventType(e){
-    if (e.type === "keydown"){
-      if (!(this.numbers.includes(String(e.key)))){
-        return "";
-      } else {
-         return e.key;
-      }
-    }  else {
-      return e.target.innerHTML;
-    }
+  
   }
 
   handleDecimal(){
-    if (!this.state.displayedNumber.includes(".")){
-      this.setState((prevState) => {
-        return {displayedNumber: prevState.displayedNumber + "."}
-      })
-    }
+
   }
 
   displayDecimalNumber(){
-    const splitNumberOnDecimal = this.state.displayedNumber.split(".");
-    const beforeDecimal = splitNumberOnDecimal[0];
-    const afterDecimal = splitNumberOnDecimal[1];
-    return Number(beforeDecimal).toLocaleString() + "." + afterDecimal
+
   }
 
   performOperation(e){
-    if (e.target.innerHTML === "+"){
-      this.setState({addition: true, 
-                     subtraction: false, 
-                     multiplication: false, 
-                     division: false, 
-                     computedNumber: this.state.computedNumber ? Number(this.state.displayedNumber) + this.state.computedNumber : Number(this.state.displayedNumber),
-                     displayedNumber: this.state.computedNumber ? String(Number(this.state.displayedNumber) + this.state.computedNumber) : this.state.displayedNumber
-      });
-    } else if (e.target.innerHTML === "-"){
-      this.setState({addition: false, 
-                     subtraction: true, 
-                     multiplication: false, 
-                     division: false,
-                     computedNumber:  this.state.computedNumber  === null ? Number(this.state.displayedNumber) : this.state.computedNumber - Number(this.state.displayedNumber) ,
-                     displayedNumber: this.state.computedNumber  === null ? this.state.displayedNumber : String(this.state.computedNumber - Number(this.state.displayedNumber))
-                    })
-    } else if (e.target.innerHTML === "x"){
-      this.setState({addition: false, subtraction: false, multiplication: true, division: false})
-    } else if (e.target.innerHTML === "÷"){
-      this.setState({addition: false, subtraction: false, multiplication: false, division: true})
-    }
   }
 
   render(){
     const operators = {division: "÷", multiplication:"x", subtraction:"-", addition: "+", equals:"="};
     const customButtons = ["AC", "+/-", "%"];
-    const isDecimal = this.state.displayedNumber.includes(".");
+    const isDecimal = String(this.state.displayedNumber).includes(".");
     const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.displayedNumber).toLocaleString();
 
     return(
