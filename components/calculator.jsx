@@ -39,6 +39,8 @@ handleNumbers(e){
       this.handleSubtraction(e.target.innerHTML)
     } else if (this.state.multiplication){
       this.handleMultiplication(e.target.innerHTML)
+    } else if (this.state.division){
+      this.handleDivision(e.target.innerHTML)
     }
      else {
       this.setState((prevState) => {
@@ -64,6 +66,9 @@ handleMultiplication(typedNumber){
   this.setState({multiplication: false, displayedNumber: Number(typedNumber)})
 }
 
+handleDivision(typedNumber){
+  this.setState({division: false, displayedNumber: Number(typedNumber)})
+}
 
 performOperation(e){
   console.log(this.state.prevOperator)
@@ -82,6 +87,9 @@ performOperation(e){
       }else if (this.state.prevOperator === "x"){
         let newComputedNumber = this.state.computedNumber ? this.state.computedNumber * Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
         this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
+      }else if (this.state.prevOperator === "÷"){
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber / Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
       }
     }
       
@@ -98,6 +106,9 @@ performOperation(e){
         this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
       }else if (this.state.prevOperator === "x"){
         let newComputedNumber = this.state.computedNumber ? this.state.computedNumber * Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
+      }else if (this.state.prevOperator === "÷"){
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber / Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
         this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
       }
     }
@@ -116,6 +127,28 @@ performOperation(e){
       } else if (this.state.prevOperator === "x"){
         let newComputedNumber = this.state.computedNumber ? this.state.computedNumber * Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
         this.setState({multiplication: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "x"})
+      } else if (this.state.prevOperator === "÷"){
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber / Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({multiplication: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "x"})
+      }
+    }
+  } else if (e.target.innerHTML === "÷"){
+    if (!this.state.prevOperator){
+      let newComputedNumber = this.state.computedNumber ? this.state.computedNumber / Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+      this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
+    } else {
+      if (this.state.prevOperator === "+"){
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber + Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
+      } else if (this.state.prevOperator === "-"){
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber - Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
+      } else if (this.state.prevOperator === "x"){
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber * Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
+      } else if (this.state.prevOperator === "÷"){
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber / Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
       }
     }
   }
