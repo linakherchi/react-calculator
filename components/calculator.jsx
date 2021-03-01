@@ -6,7 +6,7 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
   constructor(){
     super()
-    this.state = {displayedNumber: 0, computedNumber: 0, addition: false, subtraction: false, division: false, multiplication: false};
+    this.state = {displayedNumber: 0, computedNumber: null, addition: false, subtraction: false, division: false, multiplication: false};
     this.handleNumbers = this.handleNumbers.bind(this);
     // this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
@@ -18,13 +18,25 @@ export default class Calculator extends React.Component{
  // 2 => DP 2  CP 3
  // + => DP 3  CP 3
  // 5 => DP 5  CP 8 
+
+
+ // 1 ->  DP 1   CP 1
+ // - ->  DP 1   CP 1
+ // 5 ->  DP 5   CP -4
+ // - ->  DP -4  CP -4
+ // 12 -> DP 12  CP -16
+ // -  -> DP -16 CP -16 
+
  
 
 handleNumbers(e){
   if (e.target.localName !== "ul"){
     if (this.state.addition){
       this.handleAddition(e.target.innerHTML)
-    } else {
+    } else if (this.state.subtraction){
+      this.handleSubtraction(e.target.innerHTML)
+    }
+     else {
       this.setState((prevState) => {
         if (prevState.displayedNumber === 0 && "" + + prevState.displayedNumber.length === 1){
             return {displayedNumber: Number(e.target.innerHTML)}
@@ -40,11 +52,20 @@ handleAddition(typedNumber){
   this.setState({addition: false, displayedNumber: Number(typedNumber)})
 }
 
+handleSubtraction(typedNumber){
+  this.setState({subtraction: false, displayedNumber: Number(typedNumber)})
+}
+
 
 performOperation(e){
-  let newComputedNumber = this.state.computedNumber + Number(this.state.displayedNumber)
   if (e.target.innerHTML === "+"){
+    let newComputedNumber = this.state.computedNumber ? this.state.computedNumber + Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
     this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber})
+  } else if (e.target.innerHTML === "-"){
+    let newComputedNumber = this.state.computedNumber  ? this.state.computedNumber - Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+    this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber})
+
+
   }
 }
 
