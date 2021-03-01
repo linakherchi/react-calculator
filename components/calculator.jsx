@@ -32,14 +32,14 @@ export default class Calculator extends React.Component{
             if (e.type === "keydown" && newDigit){
               return {displayedNumber: e.key}
             } else if (e.type === "click"){
-              return {displayedNumber: e.target.innerHTML, computedNumber: Number(e.target.innerHTML)}
+              return {displayedNumber: e.target.innerHTML}
             }  
           } else {
             let newNumber = prevState.displayedNumber + newDigit;
             if (newNumber.split(".").join("").length === 10){
               return {displayedNumber: prevState.displayedNumber}
             }else {
-              return {displayedNumber: newNumber, computedNumber: Number(newNumber)}
+              return {displayedNumber: newNumber}
             }  
           }
         })
@@ -48,7 +48,8 @@ export default class Calculator extends React.Component{
   }
 
   handleAddition(numberToDisplay){
-    this.setState({addition: false, displayedNumber: numberToDisplay, computedNumber: Number(numberToDisplay) + this.state.computedNumber})
+    // console.log("hi")
+    this.setState({addition: false, displayedNumber: numberToDisplay})
   }
 
   handleSubtraction(numberToDisplay){
@@ -83,12 +84,15 @@ export default class Calculator extends React.Component{
   }
 
   performOperation(e){
+    console.log("displayedNumber", this.state.displayedNumber)
+    console.log("computedNumber", this.state.computedNumber)
     if (e.target.innerHTML === "+"){
       this.setState({addition: true, 
                      subtraction: false, 
                      multiplication: false, 
                      division: false, 
-                     displayedNumber: String(this.state.computedNumber)
+                     computedNumber: Number(this.state.displayedNumber) + this.state.computedNumber,
+                     displayedNumber: String(Number(this.state.displayedNumber) + this.state.computedNumber)
       });
     } else if (e.target.innerHTML === "-"){
       this.setState({addition: false, 
