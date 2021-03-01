@@ -6,9 +6,9 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
   constructor(){
     super()
-    this.state = {displayedNumber: 0, computedNumber: null, addition: false, subtraction: false, division: false, multiplication: false};
+    this.state = {displayedNumber: 0, computedNumber: 0, addition: false, subtraction: false, division: false, multiplication: false};
     this.handleNumbers = this.handleNumbers.bind(this);
-    this.handleDecimal = this.handleDecimal.bind(this);
+    // this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
     this.numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
 
@@ -20,31 +20,33 @@ export default class Calculator extends React.Component{
  // 5 => DP 5  CP 8 
  
 
-  handleNumbers(e){
-    this.setState((prevState) => {
-      if (prevState.displayedNumber === 0 && "" + + prevState.displayedNumber.length === 1){
-        return {displayedNumber: Number(e.target.innerHTML)}
-      } else {
-        return {displayedNumber: Number("" + prevState.displayedNumber + e.target.innerHTML)}
-      }
-    })
+handleNumbers(e){
+  if (e.target.localName !== "ul"){
+    if (this.state.addition){
+      this.handleAddition(e.target.innerHTML)
+    } else {
+      this.setState((prevState) => {
+        if (prevState.displayedNumber === 0 && "" + + prevState.displayedNumber.length === 1){
+            return {displayedNumber: Number(e.target.innerHTML)}
+        } else {
+          return {displayedNumber: Number("" + prevState.displayedNumber + e.target.innerHTML)}
+        }
+      })
+    }
+  }    
+}
+
+handleAddition(typedNumber){
+  this.setState({addition: false, displayedNumber: Number(typedNumber)})
 }
 
 
-  setNewDigitBasedOnEventType(e){
-  
+performOperation(e){
+  let newComputedNumber = this.state.computedNumber + Number(this.state.displayedNumber)
+  if (e.target.innerHTML === "+"){
+    this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber})
   }
-
-  handleDecimal(){
-
-  }
-
-  displayDecimalNumber(){
-
-  }
-
-  performOperation(e){
-  }
+}
 
   render(){
     const operators = {division: "÷", multiplication:"x", subtraction:"-", addition: "+", equals:"="};
