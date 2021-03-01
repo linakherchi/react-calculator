@@ -6,7 +6,7 @@ import NumberButton from './number-button';
 export default class Calculator extends React.Component{
   constructor(){
     super()
-    this.state = {displayedNumber: 0, computedNumber: null, addition: false, subtraction: false, division: false, multiplication: false};
+    this.state = {displayedNumber: 0, computedNumber: null, addition: false, subtraction: false, division: false, multiplication: false, prevOperator: null};
     this.handleNumbers = this.handleNumbers.bind(this);
     // this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
@@ -59,12 +59,32 @@ handleSubtraction(typedNumber){
 
 performOperation(e){
   if (e.target.innerHTML === "+"){
-    let newComputedNumber = this.state.computedNumber ? this.state.computedNumber + Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
-    this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber})
+    if (!this.state.prevOperator){
+      let newComputedNumber = this.state.computedNumber ? this.state.computedNumber + Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+      this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
+    } else {
+      if (this.state.prevOperator === "+"){
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber + Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
+      } else {
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber - Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
+      }
+    }
+      
   } else if (e.target.innerHTML === "-"){
-    let newComputedNumber = this.state.computedNumber  ? this.state.computedNumber - Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
-    this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber})
-
+    if (!this.state.prevOperator){
+      let newComputedNumber = this.state.computedNumber ? this.state.computedNumber - Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+      this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
+    } else {
+      if (this.state.prevOperator === "+"){
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber + Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
+      } else {
+        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber - Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
+        this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
+      }
+    }
 
   }
 }
