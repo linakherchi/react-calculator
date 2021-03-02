@@ -1,7 +1,6 @@
 import React from 'react';
 import NumberButton from './number-button';
 
-
 export default class OneToNineNumbersSection extends React.Component {
     render(){
         const {handleNumbers, numbers} = this.props;

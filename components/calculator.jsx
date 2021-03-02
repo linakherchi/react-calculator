@@ -1,8 +1,8 @@
 import React from "react";
 import OperatorButton from './operator-button';
-import NumberButton from './number-button';
 import CustomButtonsSection from './custom-buttons-section';
 import OneToNineNumbersSection from './one-to-nine-numbers-section';
+import OutliersSection from './outliers-section';
 export default class Calculator extends React.Component{
   constructor(){
     super()
@@ -173,14 +173,10 @@ render(){
 
           <OneToNineNumbersSection handleNumbers={this.handleNumbers} numbers={numbers}/>
 
-          <ul className="outliers">
-            <button id="outlier-zero" onClick={this.handleNumbers}>
-              <NumberButton number={"0"} />
-            </button>
-            <button onClick={this.handleDecimal}>.</button>
-          </ul>
+          <OutliersSection handleNumbers={this.handleNumbers} handleDecimal={this.handleDecimal}/>
         </section>
         
+
         <ul className="operators-section" onClick={this.performOperation}> 
           {Object.keys(this.operators).map((operator) => {
             return (
