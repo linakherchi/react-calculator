@@ -176,7 +176,6 @@ render(){
           <OutliersSection handleNumbers={this.handleNumbers} handleDecimal={this.handleDecimal}/>
         </section>
         
-
         <ul className="operators-section" onClick={this.performOperation}> 
           {Object.keys(this.operators).map((operator) => {
             return (
