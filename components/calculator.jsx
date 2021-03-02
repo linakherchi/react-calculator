@@ -15,12 +15,9 @@ export default class Calculator extends React.Component{
                   prevOperator: null,
                   previousComputedNumber: 0};
     this.handleNumbers = this.handleNumbers.bind(this);
-    // this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
     this.numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
     this.operators = {division: "÷", multiplication:"x", subtraction:"-", addition: "+", equals:"="};
-
-
   }
 
 
@@ -48,22 +45,17 @@ displayNewNumberOnCalculatorScreenAndTurnOffOperator(numberToDisplay){
   this.setState({[operatorName]: false, displayedNumber: Number(numberToDisplay)})
 }
 
-
 performOperation(e){
-  
   // If there was no previous operator, I do not want to perform an operator. Instead, I just want to display a new number
-
   const operatorNameAssociatedWithSignClicked = this.findOperatorNameAssociatedWithSign(e.target.innerHTML);
   let computedNumber;
   if (!this.state.prevOperator){
     computedNumber = Number(this.state.displayedNumber);
     this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: computedNumber, computedNumber, prevOperator: e.target.innerHTML})
   }
-
   if (e.target.innerHTML === "+" || e.target.innerHTML === "-"){
     this.handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, e.target.innerHTML)
-  }
-   else if (e.target.innerHTML === "x" || e.target.innerHTML === "÷"){
+  } else if (e.target.innerHTML === "x" || e.target.innerHTML === "÷"){
      this.handleMultiplicationAndDivision(operatorNameAssociatedWithSignClicked, e.target.innerHTML)
   }
 }
@@ -104,59 +96,63 @@ findOperatorNameAssociatedWithSign(operatorClicked){
   return Object.keys(this.operators).find(operator => this.operators[operator] === operatorClicked);
 }
 
-  render(){
-    const customButtons = ["AC", "+/-", "%"];
-    const isDecimal = String(this.state.displayedNumber).includes(".");
-    const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.displayedNumber).toLocaleString();
+displayDecimal(){
+  let splitDecimalNumberOnDot = String(this.state.displayedNumber).split(".");
+  return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1]
+} 
 
-    return(
-      <section className="calculator">
+render(){
+  const customButtons = ["AC", "+/-", "%"];
+  const isDecimal = String(this.state.displayedNumber).includes(".");
+  const calculatorScreen = isDecimal ? this.displayDecimal() : Number(this.state.displayedNumber).toLocaleString();
 
-        <div className="calculator-screen">{calculatorScreen}</div>
+  return(
+    <section className="calculator">
 
-        <div className="calculator-board">
-          
-          <section className="non-operators-section">
-            <ul className="custom-operators">
-              {customButtons.map((customButton) => {
-                return (
-                  <button key={customButton}>
-                    <CustomButton customButton={customButton}/>
-                  </button>
-                )
-              })}
-            </ul>
+    <div className="calculator-screen">{calculatorScreen}</div>
 
-            <ul className="one-to-nine-numbers" onClick={this.handleNumbers}>
-              {this.numbers.map(number => {
-                return (
-                  <button key={number}>
-                    <NumberButton key={number} number={number}/>
-                  </button>  
-                )
-              })}
-            </ul>
-
-            <ul className="outliers">
-              <button id="outlier-zero" onClick={this.handleNumbers}>
-                <NumberButton number={"0"} />
-              </button>
-              <button onClick={this.handleDecimal}>.</button>
-            </ul>
-          </section>
-
-          <ul className="operators-section" onClick={this.performOperation}> 
-            {Object.keys(this.operators).map((operator) => {
+      <div className="calculator-board">
+        
+        <section className="non-operators-section">
+          <ul className="custom-operators">
+            {customButtons.map((customButton) => {
               return (
-                <button className={`colorize-operators`} id={`${this.state[operator] ? "switch-colors" : ""}`} key={operator}>
-                  <OperatorButton operator={this.operators[operator]}/>
+                <button key={customButton}>
+                  <CustomButton customButton={customButton}/>
                 </button>
               )
             })}
           </ul>
 
-        </div>
-      </section>
+          <ul className="one-to-nine-numbers" onClick={this.handleNumbers}>
+            {this.numbers.map(number => {
+              return (
+                <button key={number}>
+                  <NumberButton key={number} number={number}/>
+                </button>  
+              )
+            })}
+          </ul>
+
+          <ul className="outliers">
+            <button id="outlier-zero" onClick={this.handleNumbers}>
+              <NumberButton number={"0"} />
+            </button>
+            <button onClick={this.handleDecimal}>.</button>
+          </ul>
+        </section>
+
+        <ul className="operators-section" onClick={this.performOperation}> 
+          {Object.keys(this.operators).map((operator) => {
+            return (
+              <button className={`colorize-operators`} id={`${this.state[operator] ? "switch-colors" : ""}`} key={operator}>
+                <OperatorButton operator={this.operators[operator]}/>
+              </button>
+            )
+          })}
+        </ul>
+      </div>
+    </section>
     )
   }
 }
