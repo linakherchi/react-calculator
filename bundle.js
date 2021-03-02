@@ -343,7 +343,6 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
           };
         });
       } else if (e.target.innerHTML === "%") {
-        // console.log(this.state)
         this.setState(function (prevState) {
           return {
             displayedNumber: prevState.displayedNumber / 100,

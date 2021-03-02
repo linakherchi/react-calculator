@@ -140,7 +140,6 @@ handleCustomButtons(e){
       return {displayedNumber: prevState.displayedNumber * - 1, computedNumber: prevState.displayedNumber * - 1}
     })
   } else if (e.target.innerHTML === "%"){
-    // console.log(this.state)
     this.setState((prevState) => {
       return {displayedNumber: prevState.displayedNumber /100 , computedNumber: prevState.displayedNumber /100}
     })
@@ -169,7 +168,6 @@ render(){
       <div className="calculator-board">
         
         <section className="non-operators-section">
-
           <CustomButtonsSection customButtons={customButtons} handleCustomButtons={this.handleCustomButtons}/>
 
           <OneToNineNumbersSection handleNumbers={this.handleNumbers} numbers={numbers}/>
@@ -186,6 +184,7 @@ render(){
             )
           })}
         </ul>
+        
       </div>
     </section>
     )
