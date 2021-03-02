@@ -27,8 +27,8 @@ export default class Calculator extends React.Component{
 
 handleNumbers(e){
   if (e.target.localName !== "ul"){
-    const isAnyOperatorOn = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division;
-    if (isAnyOperatorOn){
+    const operatorAlreadyActivated = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division;
+    if (operatorAlreadyActivated){
       this.displayNewNumberOnCalculatorScreenAndTurnOffOperator(e.target.innerHTML);
     } else {
       this.setState((prevState) => {
@@ -49,6 +49,12 @@ displayNewNumberOnCalculatorScreenAndTurnOffOperator(numberToDisplay){
 }
 
 performOperation(e){
+  const operatorAlreadyActivated = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division;
+  if (operatorAlreadyActivated) return;
+
+  if (this.state.equals){
+    this.setState({equals: false})
+  }
   // If there was no previous operator, I do not want to perform an operator. Instead, I just want to display a new number
   const operatorNameAssociatedWithSignClicked = this.findOperatorNameAssociatedWithSign(e.target.innerHTML);
   let computedNumber;
@@ -56,7 +62,7 @@ performOperation(e){
     computedNumber = Number(this.state.displayedNumber);
     this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: computedNumber, computedNumber, prevOperator: e.target.innerHTML})
   }
-  if (e.target.innerHTML === "+" || e.target.innerHTML === "-"){
+  if (e.target.innerHTML === "+" || e.target.innerHTML === "-" || e.target.innerHTML === "="){
     this.handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, e.target.innerHTML)
   } else if (e.target.innerHTML === "x" || e.target.innerHTML === "÷"){
      this.handleMultiplicationAndDivision(operatorNameAssociatedWithSignClicked, e.target.innerHTML)
@@ -78,6 +84,8 @@ handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, operatorSign
     let newlyComputedNumber = this.state.computedNumber / this.state.displayedNumber ;
     let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
     this.setState({[operatorNameAssociatedWithSignClicked]: true, computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber,  prevOperator: operatorSign, previousComputedNumber:  0})
+  } else if (this.state.prevOperator === "="){
+    this.setState({[operatorNameAssociatedWithSignClicked]: true,  prevOperator: operatorSign})
   }
 }
 
