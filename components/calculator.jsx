@@ -112,7 +112,7 @@ displayDecimal(){
   if (splitDecimalNumberOnDot[0].length > 9){
     return Number((splitDecimalNumberOnDot[0]).toExponential(1)).toLocaleString() + "." + splitDecimalNumberOnDot[1];
   }else {
-    return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1];
+    return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1].slice(0, 9);
   }
 } 
 
