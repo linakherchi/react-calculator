@@ -60,7 +60,7 @@ performOperation(e){
     this.handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, e.target.innerHTML)
   } else if (e.target.innerHTML === "x" || e.target.innerHTML === "÷"){
      this.handleMultiplicationAndDivision(operatorNameAssociatedWithSignClicked, e.target.innerHTML)
-  }
+  } 
 }
 
 handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, operatorSign){
@@ -102,7 +102,7 @@ findOperatorNameAssociatedWithSign(operatorClicked){
 displayDecimal(){
   let splitDecimalNumberOnDot = String(this.state.displayedNumber).split(".");
   if (splitDecimalNumberOnDot[0].length > 9){
-    return Number((splitDecimalNumberOnDot[0]).toExponential(3)).toLocaleString() + "." + splitDecimalNumberOnDot[1];
+    return Number((splitDecimalNumberOnDot[0]).toExponential(1)).toLocaleString() + "." + splitDecimalNumberOnDot[1];
   }else {
     return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1];
   }
@@ -138,7 +138,7 @@ handleCustomButtons(e){
 
 displayResult(){
   if (String(this.state.displayedNumber).length > 9){
-    return this.state.displayedNumber.toExponential(3);
+    return this.state.displayedNumber.toExponential(1);
   } else {
     return this.state.displayedNumber.toLocaleString()
   }
