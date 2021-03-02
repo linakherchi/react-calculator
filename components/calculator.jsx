@@ -122,6 +122,10 @@ handleCustomButtons(e){
       prevOperator: null,
       previousComputedNumber: 0
     });
+  } else if (e.target.innerHTML === "+/-"){
+    this.setState((prevState) => {
+      return {displayedNumber: prevState.displayedNumber * - 1}
+    })
   }
 }
 
