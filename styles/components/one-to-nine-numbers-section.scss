@@ -1,0 +1,15 @@
+.one-to-nine-numbers{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 60%;
+
+    button {
+        background-color: $dark-liver;
+    }
+
+    button:active{
+        background-color: $light-gray;
+    }
+}

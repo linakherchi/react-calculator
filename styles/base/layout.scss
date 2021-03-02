@@ -48,24 +48,6 @@
                     }
                 }
 
-                .one-to-nine-numbers{
-                    display: flex;
-                    flex-wrap: wrap;
-                    flex-direction: column;
-                    justify-content: space-around;
-
-                    button {
-                        background-color: $dark-liver;
-                    }
-
-                    button:active{
-                        background-color: $light-gray;
-                    }
-                }
-
-                .one-to-nine-numbers{
-                    height: 60%;
-                }
             }
         }
     }
