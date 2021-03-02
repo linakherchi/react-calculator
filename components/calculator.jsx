@@ -47,7 +47,7 @@ displayNewNumberOnCalculatorScreenAndTurnOffOperator(numberToDisplay){
   const operatorName = this.findOperatorNameAssociatedWithSign(this.state.prevOperator);
   this.setState({[operatorName]: false, displayedNumber: Number(numberToDisplay)});
   if (operatorName === "equals"){
-    this.setState({computedNumber: Number(numberToDisplay)})
+    this.setState({computedNumber: Number(numberToDisplay), prevOperator: null})
   }
 }
 

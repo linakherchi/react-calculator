@@ -203,7 +203,8 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
 
       if (operatorName === "equals") {
         this.setState({
-          computedNumber: Number(numberToDisplay)
+          computedNumber: Number(numberToDisplay),
+          prevOperator: null
         });
       }
     }
