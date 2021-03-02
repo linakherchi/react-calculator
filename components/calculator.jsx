@@ -28,16 +28,10 @@ export default class Calculator extends React.Component{
 
 handleNumbers(e){
   if (e.target.localName !== "ul"){
-    if (this.state.addition){
-      this.handleAddition(e.target.innerHTML)
-    } else if (this.state.subtraction){
-      this.handleSubtraction(e.target.innerHTML)
-    } else if (this.state.multiplication){
-      this.handleMultiplication(e.target.innerHTML)
-    } else if (this.state.division){
-      this.handleDivision(e.target.innerHTML)
-    }
-     else {
+    const isAnyOperatorOn = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division;
+    if (isAnyOperatorOn){
+      this.displayNewNumberOnCalculatorScreenAndTurnOffOperator(e.target.innerHTML)
+    } else {
       this.setState((prevState) => {
         if (prevState.displayedNumber === 0 && "" + + prevState.displayedNumber.length === 1){
             return {displayedNumber: Number(e.target.innerHTML)}
@@ -49,21 +43,11 @@ handleNumbers(e){
   }    
 }
 
-handleAddition(typedNumber){
-  this.setState({addition: false, displayedNumber: Number(typedNumber)})
+displayNewNumberOnCalculatorScreenAndTurnOffOperator(numberToDisplay){
+  const operatorName = this.findOperatorNameAssociatedWithSign(this.state.prevOperator);
+  this.setState({[operatorName]: false, displayedNumber: Number(numberToDisplay)})
 }
 
-handleSubtraction(typedNumber){
-  this.setState({subtraction: false, displayedNumber: Number(typedNumber)})
-}
-
-handleMultiplication(typedNumber){
-  this.setState({multiplication: false, displayedNumber: Number(typedNumber)})
-}
-
-handleDivision(typedNumber){
-  this.setState({division: false, displayedNumber: Number(typedNumber)})
-}
 
 performOperation(e){
   
@@ -77,33 +61,42 @@ performOperation(e){
   }
 
   if (e.target.innerHTML === "+" || e.target.innerHTML === "-"){
-    if (this.state.prevOperator === "+"){
-      let newComputedNumber = this.state.computedNumber + Number(this.state.displayedNumber) 
-      this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
-    } else if (this.state.prevOperator === "-"){
-      let newComputedNumber = this.state.computedNumber - Number(this.state.displayedNumber) 
-      this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
-    }else if (this.state.prevOperator === "x"){
-      let newlyComputedNumber = Number(this.state.displayedNumber) * this.state.computedNumber;
-      let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
-      this.setState({[operatorNameAssociatedWithSignClicked]: true, prevOperator: e.target.innerHTML, computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, previousComputedNumber:  0})
-    }else if (this.state.prevOperator === "÷"){
-      let newlyComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) ;
-      let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
-      this.setState({[operatorNameAssociatedWithSignClicked]: true, prevOperator: e.target.innerHTML, computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, previousComputedNumber:  0})
-    }
-  } else if (e.target.innerHTML === "x" || e.target.innerHTML === "+"){
-    if (this.state.prevOperator === "+"){
-      this.setState({[operatorNameAssociatedWithSignClicked]: true,  computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  this.state.computedNumber, prevOperator: e.target.innerHTML})
-    } else if (this.state.prevOperator === "-"){
-      this.setState({[operatorNameAssociatedWithSignClicked]: true,  computedNumber: - Number(this.state.displayedNumber), previousComputedNumber: this.state.computedNumber,prevOperator: e.target.innerHTML})
-    } else if (this.state.prevOperator === "x"){
-      let newComputedNumber = this.state.computedNumber * Number(this.state.displayedNumber) 
-      this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
-    } else if (this.state.prevOperator === "÷"){
-      let newComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) 
-      this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
-    }
+    this.handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, e.target.innerHTML)
+  }
+   else if (e.target.innerHTML === "x" || e.target.innerHTML === "÷"){
+     this.handleMultiplicationAndDivision(operatorNameAssociatedWithSignClicked, e.target.innerHTML)
+  }
+}
+
+handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, operatorSign){
+  if (this.state.prevOperator === "+"){
+    let newComputedNumber = this.state.computedNumber + Number(this.state.displayedNumber) 
+    this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: operatorSign})
+  } else if (this.state.prevOperator === "-"){
+    let newComputedNumber = this.state.computedNumber - Number(this.state.displayedNumber) 
+    this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: operatorSign})
+  }else if (this.state.prevOperator === "x"){
+    let newlyComputedNumber = Number(this.state.displayedNumber) * this.state.computedNumber;
+    let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
+    this.setState({[operatorNameAssociatedWithSignClicked]: true, computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, prevOperator: operatorSign, previousComputedNumber:  0})
+  }else if (this.state.prevOperator === "÷"){
+    let newlyComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) ;
+    let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
+    this.setState({[operatorNameAssociatedWithSignClicked]: true, computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber,  prevOperator: operatorSign, previousComputedNumber:  0})
+  }
+}
+
+handleMultiplicationAndDivision(operatorNameAssociatedWithSignClicked, operatorSign){
+  if (this.state.prevOperator === "+"){
+    this.setState({[operatorNameAssociatedWithSignClicked]: true, computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  this.state.computedNumber, prevOperator: operatorSign})
+  } else if (this.state.prevOperator === "-"){
+    this.setState({[operatorNameAssociatedWithSignClicked]: true,  computedNumber: - Number(this.state.displayedNumber), previousComputedNumber: this.state.computedNumber,prevOperator: operatorSign})
+  } else if (this.state.prevOperator === "x"){
+    let newComputedNumber = this.state.computedNumber * Number(this.state.displayedNumber) 
+    this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: operatorSign})
+  } else if (this.state.prevOperator === "÷"){
+    let newComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) 
+    this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: operatorSign})
   }
 }
 
