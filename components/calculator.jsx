@@ -1,7 +1,8 @@
 import React from "react";
 import OperatorButton from './operator-button';
 import NumberButton from './number-button';
-import CustomButtonsSection from './custom-buttons';
+import CustomButtonsSection from './custom-buttons-section';
+import OneToNineNumbersSection from './one-to-nine-numbers-section';
 export default class Calculator extends React.Component{
   constructor(){
     super()
@@ -19,7 +20,6 @@ export default class Calculator extends React.Component{
     this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
     this.handleCustomButtons = this.handleCustomButtons.bind(this);
-    this.numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
     this.operators = {division: "÷", multiplication:"x", subtraction:"-", addition: "+", equals:"="};
   }
 
@@ -156,6 +156,7 @@ displayResult(){
 
 render(){
   const customButtons = ["AC", "+/-", "%"];
+  const numbers =["7", "4", "1", "8", "5", "2", "9", "6", "3"];
   const isDecimal = String(this.state.displayedNumber).includes(".");
   const calculatorScreen = isDecimal ? this.displayDecimal() : this.displayResult();
 
@@ -170,15 +171,7 @@ render(){
 
           <CustomButtonsSection customButtons={customButtons} handleCustomButtons={this.handleCustomButtons}/>
 
-          <ul className="one-to-nine-numbers" onClick={this.handleNumbers}>
-            {this.numbers.map(number => {
-              return (
-                <button key={number} id="number-button">
-                  <NumberButton key={number} number={number} />
-                </button>  
-              )
-            })}
-          </ul>
+          <OneToNineNumbersSection handleNumbers={this.handleNumbers} numbers={numbers}/>
 
           <ul className="outliers">
             <button id="outlier-zero" onClick={this.handleNumbers}>
