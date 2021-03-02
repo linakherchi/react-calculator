@@ -101,7 +101,11 @@ findOperatorNameAssociatedWithSign(operatorClicked){
 
 displayDecimal(){
   let splitDecimalNumberOnDot = String(this.state.displayedNumber).split(".");
-  return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1];
+  if (splitDecimalNumberOnDot[0].length > 9){
+    return Number((splitDecimalNumberOnDot[0]).toExponential(3)).toLocaleString() + "." + splitDecimalNumberOnDot[1];
+  }else {
+    return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1];
+  }
 } 
 
 handleDecimal(){
@@ -132,10 +136,18 @@ handleCustomButtons(e){
   }
 }
 
+displayResult(){
+  if (String(this.state.displayedNumber).length > 9){
+    return this.state.displayedNumber.toExponential(3);
+  } else {
+    return this.state.displayedNumber.toLocaleString()
+  }
+}
+
 render(){
   const customButtons = ["AC", "+/-", "%"];
   const isDecimal = String(this.state.displayedNumber).includes(".");
-  const calculatorScreen = isDecimal ? this.displayDecimal() : Number(this.state.displayedNumber).toLocaleString();
+  const calculatorScreen = isDecimal ? this.displayDecimal() : this.displayResult();
 
   return(
     <section className="calculator">
