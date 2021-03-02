@@ -25,8 +25,6 @@ export default class Calculator extends React.Component{
   }
 
 
- 
-
 handleNumbers(e){
   if (e.target.localName !== "ul"){
     const isAnyOperatorOn = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division;
@@ -34,6 +32,7 @@ handleNumbers(e){
       this.displayNewNumberOnCalculatorScreenAndTurnOffOperator(e.target.innerHTML);
     } else {
       this.setState((prevState) => {
+        if (String(prevState.displayedNumber).length === 9) return;
         if (prevState.displayedNumber === 0 && "" + + prevState.displayedNumber.length === 1){
             return {displayedNumber: Number(e.target.innerHTML)};
         } else {
