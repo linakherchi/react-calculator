@@ -1,0 +1,13 @@
+.custom-operators{
+    height: 20%;
+    display: flex;
+    justify-content: space-evenly;
+
+    button {
+        background-color: $light-gray;
+        color: $black;
+    }
+    button:active{
+        background-color: $white;
+    }
+}
