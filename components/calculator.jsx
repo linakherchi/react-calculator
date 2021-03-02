@@ -18,6 +18,8 @@ export default class Calculator extends React.Component{
     // this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
     this.numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
+    this.operators = {division: "÷", multiplication:"x", subtraction:"-", addition: "+", equals:"="};
+
 
   }
 
@@ -64,22 +66,25 @@ handleDivision(typedNumber){
 }
 
 performOperation(e){
- 
+  let computedNumber;
+  // If there was no previous operator, I do not want to perform an operator. Instead, I just want to display a new number
+
+  const operatorNameAssociatedWithSignClicked = this.findOperatorNameAssociatedWithSign(e.target.innerHTML);
+
+  if (!this.state.prevOperator){
+    computedNumber = Number(this.state.displayedNumber);
+    this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: computedNumber, computedNumber, prevOperator: e.target.innerHTML})
+  }
+
   if (e.target.innerHTML === "+"){
-    
-    if (!this.state.prevOperator){
-      let newComputedNumber = Number(this.state.displayedNumber)
-      this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
-    } else {
+    {
       if (this.state.prevOperator === "+"){
-        
-        
         let newComputedNumber = this.state.computedNumber + Number(this.state.displayedNumber) 
-        this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
 
       } else if (this.state.prevOperator === "-"){
         let newComputedNumber = this.state.computedNumber - Number(this.state.displayedNumber) 
-        this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
       }else if (this.state.prevOperator === "x"){
         
 
@@ -87,91 +92,85 @@ performOperation(e){
         let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
 
  
-        this.setState({addition: true, prevOperator: "+", computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, previousComputedNumber:  0})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, prevOperator: e.target.innerHTML, computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, previousComputedNumber:  0})
         
       }else if (this.state.prevOperator === "÷"){
         let newlyComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) ;
         let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
 
        
-        this.setState({addition: true, prevOperator: "+", computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, previousComputedNumber:  0})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, prevOperator: e.target.innerHTML, computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, previousComputedNumber:  0})
       }
     }
       
   } else if (e.target.innerHTML === "-"){
-    if (!this.state.prevOperator){
-      let newComputedNumber = Number(this.state.displayedNumber)
-      this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
-    } else {
+     {
       if (this.state.prevOperator === "+"){
         let newComputedNumber = this.state.computedNumber + Number(this.state.displayedNumber) 
-        this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
       } else  if (this.state.prevOperator === "-"){
         let newComputedNumber = this.state.computedNumber - Number(this.state.displayedNumber) 
-        this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
       }else if (this.state.prevOperator === "x"){
         let newComputedNumber =  this.state.computedNumber * Number(this.state.displayedNumber) 
-        this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
 
       }else if (this.state.prevOperator === "÷"){
         let newComputedNumber =  this.state.computedNumber / Number(this.state.displayedNumber) 
-        this.setState({subtraction: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "-"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
        
       }
     }
 
   } else if (e.target.innerHTML === "x"){
-    if (!this.state.prevOperator){
-      let newComputedNumber = Number(this.state.displayedNumber)
-      this.setState({multiplication: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "x"})
-    } else {
+     {
       if (this.state.prevOperator === "+"){
         let newlyComputedNumber = Number(this.state.displayedNumber) + this.state.computedNumber;
         let newlyPreviousComputedNumber = newlyComputedNumber - (Number(this.state.displayedNumber))
-        this.setState({multiplication: true,  computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  newlyPreviousComputedNumber, prevOperator: "x"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true,  computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  newlyPreviousComputedNumber, prevOperator: e.target.innerHTML})
 
       } else if (this.state.prevOperator === "-"){
         let newlyComputedNumber = this.state.computedNumber - Number(this.state.displayedNumber)
         let newlyPreviousComputedNumber = newlyComputedNumber - (- Number(this.state.displayedNumber))
 
-        this.setState({multiplication: true,  computedNumber: - Number(this.state.displayedNumber), previousComputedNumber: newlyPreviousComputedNumber,prevOperator: "x"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true,  computedNumber: - Number(this.state.displayedNumber), previousComputedNumber: newlyPreviousComputedNumber,prevOperator: e.target.innerHTML})
       } else if (this.state.prevOperator === "x"){
         let newComputedNumber = this.state.computedNumber * Number(this.state.displayedNumber) 
-        this.setState({multiplication: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "x"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
       } else if (this.state.prevOperator === "÷"){
         let newComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) 
-        this.setState({multiplication: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "x"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
       }
     }
   } else if (e.target.innerHTML === "÷"){
-    if (!this.state.prevOperator){
-      let newComputedNumber = Number(this.state.displayedNumber)
-      this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
-    } else {
+     {
       if (this.state.prevOperator === "+"){
         let newlyComputedNumber = Number(this.state.displayedNumber) + this.state.computedNumber;
         let newlyPreviousComputedNumber = newlyComputedNumber - (Number(this.state.displayedNumber))
-        this.setState({division: true,  computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  newlyPreviousComputedNumber, prevOperator: "÷"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true,  computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  newlyPreviousComputedNumber, prevOperator: e.target.innerHTML})
       } else if (this.state.prevOperator === "-"){
         let newlyComputedNumber = this.state.computedNumber - Number(this.state.displayedNumber)
         let newlyPreviousComputedNumber = newlyComputedNumber - (- Number(this.state.displayedNumber))
 
-        this.setState({division: true,  computedNumber: - Number(this.state.displayedNumber), previousComputedNumber: newlyPreviousComputedNumber,prevOperator: "÷"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true,  computedNumber: - Number(this.state.displayedNumber), previousComputedNumber: newlyPreviousComputedNumber,prevOperator: e.target.innerHTML})
 
 
       } else if (this.state.prevOperator === "x"){
         let newComputedNumber = this.state.computedNumber * Number(this.state.displayedNumber) 
-        this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
       } else if (this.state.prevOperator === "÷"){
         let newComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) 
-        this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
+        this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: e.target.innerHTML})
       }
     }
   }
 }
 
+findOperatorNameAssociatedWithSign(operatorClicked){
+  return Object.keys(this.operators).find(operator => this.operators[operator] === operatorClicked);
+}
+
   render(){
-    const operators = {division: "÷", multiplication:"x", subtraction:"-", addition: "+", equals:"="};
     const customButtons = ["AC", "+/-", "%"];
     const isDecimal = String(this.state.displayedNumber).includes(".");
     const calculatorScreen = isDecimal ? this.displayDecimalNumber() : Number(this.state.displayedNumber).toLocaleString();
@@ -213,10 +212,10 @@ performOperation(e){
           </section>
 
           <ul className="operators-section" onClick={this.performOperation}> 
-            {Object.keys(operators).map((operator) => {
+            {Object.keys(this.operators).map((operator) => {
               return (
                 <button className={`colorize-operators`} id={`${this.state[operator] ? "switch-colors" : ""}`} key={operator}>
-                  <OperatorButton operator={operators[operator]}/>
+                  <OperatorButton operator={this.operators[operator]}/>
                 </button>
               )
             })}
