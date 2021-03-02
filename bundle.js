@@ -179,11 +179,12 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
           this.setState(function (prevState) {
             if (String(prevState.displayedNumber).length === 9) return;
 
-            if (prevState.displayedNumber === 0 && "" + +prevState.displayedNumber.length === 1) {
+            if (prevState.displayedNumber === 0 && "" + prevState.displayedNumber.length === 1) {
               return {
                 displayedNumber: Number(e.target.innerHTML)
               };
             } else {
+              console.log('hi');
               return {
                 displayedNumber: Number("" + prevState.displayedNumber + e.target.innerHTML)
               };

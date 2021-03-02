@@ -32,7 +32,7 @@ handleNumbers(e){
     } else {
       this.setState((prevState) => {
         if (String(prevState.displayedNumber).length === 9) return;
-        if (prevState.displayedNumber === 0 && "" + + prevState.displayedNumber.length === 1){
+        if (prevState.displayedNumber === 0 && "" + prevState.displayedNumber.length === 1){
             return {displayedNumber: Number(e.target.innerHTML)};
         } else {
           return {displayedNumber: Number("" + prevState.displayedNumber + e.target.innerHTML)};
