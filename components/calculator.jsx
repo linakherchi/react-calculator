@@ -100,6 +100,8 @@ handleMultiplicationAndDivision(operatorNameAssociatedWithSignClicked, operatorS
   } else if (this.state.prevOperator === "÷"){
     let newComputedNumber = this.state.computedNumber / this.state.displayedNumber 
     this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: operatorSign})
+  } else if (this.state.prevOperator === "="){
+    this.setState({[operatorNameAssociatedWithSignClicked]: true,  prevOperator: operatorSign})
   }
 }
 
@@ -112,7 +114,7 @@ displayDecimal(){
   if (splitDecimalNumberOnDot[0].length > 9){
     return Number((splitDecimalNumberOnDot[0]).toExponential(1)).toLocaleString() + "." + splitDecimalNumberOnDot[1];
   }else {
-    return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1].slice(0, 9);
+    return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1].slice(0, 9 - splitDecimalNumberOnDot[0].length);
   }
 } 
 
@@ -130,6 +132,7 @@ handleCustomButtons(e){
       subtraction: false, 
       division: false, 
       multiplication: false, 
+      equals: false,
       prevOperator: null,
       previousComputedNumber: 0
     });
