@@ -11,7 +11,8 @@ export default class Calculator extends React.Component{
                   addition: false, 
                   subtraction: false, 
                   division: false, 
-                  multiplication: false, 
+                  multiplication: false,
+                  equals: false, 
                   prevOperator: null,
                   previousComputedNumber: 0
                 };
@@ -26,7 +27,7 @@ export default class Calculator extends React.Component{
 
 handleNumbers(e){
   if (e.target.localName !== "ul"){
-    const operatorAlreadyActivated = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division;
+    const operatorAlreadyActivated = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division || this.state.equals ;
     if (operatorAlreadyActivated){
       this.displayNewNumberOnCalculatorScreenAndTurnOffOperator(e.target.innerHTML);
     } else {
@@ -45,6 +46,9 @@ handleNumbers(e){
 displayNewNumberOnCalculatorScreenAndTurnOffOperator(numberToDisplay){
   const operatorName = this.findOperatorNameAssociatedWithSign(this.state.prevOperator);
   this.setState({[operatorName]: false, displayedNumber: Number(numberToDisplay)});
+  if (operatorName === "equals"){
+    this.setState({computedNumber: Number(numberToDisplay)})
+  }
 }
 
 performOperation(e){

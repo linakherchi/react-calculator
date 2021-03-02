@@ -150,6 +150,7 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
       subtraction: false,
       division: false,
       multiplication: false,
+      equals: false,
       prevOperator: null,
       previousComputedNumber: 0
     };
@@ -171,7 +172,7 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
     key: "handleNumbers",
     value: function handleNumbers(e) {
       if (e.target.localName !== "ul") {
-        var operatorAlreadyActivated = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division;
+        var operatorAlreadyActivated = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division || this.state.equals;
 
         if (operatorAlreadyActivated) {
           this.displayNewNumberOnCalculatorScreenAndTurnOffOperator(e.target.innerHTML);
@@ -184,7 +185,6 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
                 displayedNumber: Number(e.target.innerHTML)
               };
             } else {
-              console.log('hi');
               return {
                 displayedNumber: Number("" + prevState.displayedNumber + e.target.innerHTML)
               };
@@ -200,6 +200,12 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
 
       var operatorName = this.findOperatorNameAssociatedWithSign(this.state.prevOperator);
       this.setState((_this$setState = {}, _defineProperty(_this$setState, operatorName, false), _defineProperty(_this$setState, "displayedNumber", Number(numberToDisplay)), _this$setState));
+
+      if (operatorName === "equals") {
+        this.setState({
+          computedNumber: Number(numberToDisplay)
+        });
+      }
     }
   }, {
     key: "performOperation",
