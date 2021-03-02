@@ -81,14 +81,14 @@ performOperation(e){
   // console.log(this.state.prevOperator)
   // console.log(this.state.computedNumber)
   if (e.target.innerHTML === "+"){
-    console.log(this.state)
+    // console.log(this.state)
     if (!this.state.prevOperator){
       let newComputedNumber = this.state.computedNumber ? this.state.computedNumber + Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
       this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
     } else {
       if (this.state.prevOperator === "+"){
         
-        console.log(this.state.computedNumber)
+        
         let newComputedNumber = this.state.computedNumber ? this.state.computedNumber + Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
         this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
 
@@ -100,6 +100,9 @@ performOperation(e){
 
         let newlyComputedNumber = Number(this.state.displayedNumber) * this.state.computedNumber;
         let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
+        console.log(this.state.previousComputedNumber)
+        console.log("newlyComputedNumber", newlyComputedNumber)
+        console.log("newlyDisplayedNumber",newlyDisplayedNumber)
  
         this.setState({addition: true, prevOperator: "+", computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, previousComputedNumber:  0})
         
@@ -138,26 +141,14 @@ performOperation(e){
       if (this.state.prevOperator === "+"){
         let newlyComputedNumber = Number(this.state.displayedNumber) + this.state.computedNumber;
         let newlyPreviousComputedNumber = newlyComputedNumber - (Number(this.state.displayedNumber))
-        this.setState({multiplication: true, prevOperator: "x", computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  newlyPreviousComputedNumber})
-
-
-
-
-
-
-
-
-
-
-
-
-
+        this.setState({multiplication: true,  computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  newlyPreviousComputedNumber, prevOperator: "x"})
 
       } else if (this.state.prevOperator === "-"){
-        // console.log(this.state.computedNumber)
-        // console.log(Number(this.state.displayedNumber))
-        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber - Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
-        this.setState({multiplication: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "x"})
+        let newlyComputedNumber = this.state.computedNumber - Number(this.state.displayedNumber)
+        let newlyPreviousComputedNumber = newlyComputedNumber - (- Number(this.state.displayedNumber))
+        console.log("newlyPreviousComputedNumber", newlyPreviousComputedNumber)
+        console.log("computedNumber",- Number(this.state.displayedNumber))
+        this.setState({multiplication: true,  computedNumber: - Number(this.state.displayedNumber), previousComputedNumber: newlyPreviousComputedNumber,prevOperator: "x"})
       } else if (this.state.prevOperator === "x"){
         let newComputedNumber = this.state.computedNumber ? this.state.computedNumber * Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
         this.setState({multiplication: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "x"})
