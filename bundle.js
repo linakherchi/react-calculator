@@ -338,13 +338,16 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
       } else if (e.target.innerHTML === "+/-") {
         this.setState(function (prevState) {
           return {
-            displayedNumber: prevState.displayedNumber * -1
+            displayedNumber: prevState.displayedNumber * -1,
+            computedNumber: prevState.displayedNumber * -1
           };
         });
       } else if (e.target.innerHTML === "%") {
+        // console.log(this.state)
         this.setState(function (prevState) {
           return {
-            displayedNumber: prevState.displayedNumber / 100
+            displayedNumber: prevState.displayedNumber / 100,
+            computedNumber: prevState.displayedNumber / 100
           };
         });
       }

@@ -58,44 +58,10 @@ input {
     #root .calculator .calculator-board {
       display: flex;
       height: 80%; }
-      #root .calculator .calculator-board .operators-section {
-        width: 25%;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around; }
       #root .calculator .calculator-board .non-operators-section {
         width: 75%;
         display: flex;
         flex-direction: column; }
-        #root .calculator .calculator-board .non-operators-section .custom-operators {
-          height: 20%;
-          display: flex;
-          justify-content: space-evenly; }
-          #root .calculator .calculator-board .non-operators-section .custom-operators button {
-            background-color: #D4D4D2;
-            color: black; }
-          #root .calculator .calculator-board .non-operators-section .custom-operators button:active {
-            background-color: white; }
-        #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
-          display: flex;
-          flex-wrap: wrap;
-          flex-direction: column;
-          justify-content: space-around; }
-          #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers button {
-            background-color: #505050; }
-          #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers button:active {
-            background-color: #D4D4D2; }
-        #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
-          height: 60%; }
-        #root .calculator .calculator-board .non-operators-section .outliers {
-          height: 20%;
-          display: flex;
-          justify-content: space-around; }
-          #root .calculator .calculator-board .non-operators-section .outliers button:active {
-            background-color: #D4D4D2; }
-          #root .calculator .calculator-board .non-operators-section .outliers #outlier-zero {
-            width: 9vw;
-            border-radius: 30px; }
 
 button {
   border-radius: 50%;
@@ -112,12 +78,47 @@ button {
   border: none;
   color: white; }
 
-.colorize-operators {
-  background-color: #FF9500;
-  color: white;
-  font-weight: thin; }
+.operators-section {
+  width: 25%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around; }
+  .operators-section .colorize-operators {
+    background-color: #FF9500;
+    color: white;
+    font-weight: thin; }
+  .operators-section #switch-colors {
+    background-color: white;
+    color: #FF9500;
+    transition: background-color .4s ease-out, color .4s ease-out; }
 
-#switch-colors {
-  background-color: white;
-  color: #FF9500;
-  transition: background-color .4s ease-out, color .4s ease-out; }
+.outliers {
+  height: 20%;
+  display: flex;
+  justify-content: space-around; }
+  .outliers button:active {
+    background-color: #D4D4D2; }
+  .outliers #outlier-zero {
+    width: 9vw;
+    border-radius: 30px; }
+
+.one-to-nine-numbers {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 60%; }
+  .one-to-nine-numbers button {
+    background-color: #505050; }
+  .one-to-nine-numbers button:active {
+    background-color: #D4D4D2; }
+
+.custom-operators {
+  height: 20%;
+  display: flex;
+  justify-content: space-evenly; }
+  .custom-operators button {
+    background-color: #D4D4D2;
+    color: black; }
+  .custom-operators button:active {
+    background-color: white; }

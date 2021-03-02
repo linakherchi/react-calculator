@@ -137,11 +137,12 @@ handleCustomButtons(e){
     });
   } else if (e.target.innerHTML === "+/-"){
     this.setState((prevState) => {
-      return {displayedNumber: prevState.displayedNumber * - 1}
+      return {displayedNumber: prevState.displayedNumber * - 1, computedNumber: prevState.displayedNumber * - 1}
     })
   } else if (e.target.innerHTML === "%"){
+    // console.log(this.state)
     this.setState((prevState) => {
-      return {displayedNumber: prevState.displayedNumber /100 }
+      return {displayedNumber: prevState.displayedNumber /100 , computedNumber: prevState.displayedNumber /100}
     })
   }
 }
