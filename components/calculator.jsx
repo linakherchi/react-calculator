@@ -1,8 +1,7 @@
 import React from "react";
 import OperatorButton from './operator-button';
-import CustomButton from './custom-button';
 import NumberButton from './number-button';
-
+import CustomButtonsSection from './custom-buttons';
 export default class Calculator extends React.Component{
   constructor(){
     super()
@@ -168,15 +167,8 @@ render(){
       <div className="calculator-board">
         
         <section className="non-operators-section">
-          <ul className="custom-operators" onClick={this.handleCustomButtons}>
-            {customButtons.map((customButton) => {
-              return (
-                <button key={customButton}>
-                  <CustomButton customButton={customButton}/>
-                </button>
-              )
-            })}
-          </ul>
+
+          <CustomButtonsSection customButtons={customButtons} handleCustomButtons={this.handleCustomButtons}/>
 
           <ul className="one-to-nine-numbers" onClick={this.handleNumbers}>
             {this.numbers.map(number => {
