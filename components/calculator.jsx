@@ -13,8 +13,11 @@ export default class Calculator extends React.Component{
                   division: false, 
                   multiplication: false, 
                   prevOperator: null,
-                  previousComputedNumber: 0};
+                  previousComputedNumber: 0
+                };
+
     this.handleNumbers = this.handleNumbers.bind(this);
+    this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
     this.numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
     this.operators = {division: "÷", multiplication:"x", subtraction:"-", addition: "+", equals:"="};
@@ -27,13 +30,13 @@ handleNumbers(e){
   if (e.target.localName !== "ul"){
     const isAnyOperatorOn = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division;
     if (isAnyOperatorOn){
-      this.displayNewNumberOnCalculatorScreenAndTurnOffOperator(e.target.innerHTML)
+      this.displayNewNumberOnCalculatorScreenAndTurnOffOperator(e.target.innerHTML);
     } else {
       this.setState((prevState) => {
         if (prevState.displayedNumber === 0 && "" + + prevState.displayedNumber.length === 1){
-            return {displayedNumber: Number(e.target.innerHTML)}
+            return {displayedNumber: Number(e.target.innerHTML)};
         } else {
-          return {displayedNumber: Number("" + prevState.displayedNumber + e.target.innerHTML)}
+          return {displayedNumber: Number("" + prevState.displayedNumber + e.target.innerHTML)};
         }
       })
     }
@@ -42,7 +45,7 @@ handleNumbers(e){
 
 displayNewNumberOnCalculatorScreenAndTurnOffOperator(numberToDisplay){
   const operatorName = this.findOperatorNameAssociatedWithSign(this.state.prevOperator);
-  this.setState({[operatorName]: false, displayedNumber: Number(numberToDisplay)})
+  this.setState({[operatorName]: false, displayedNumber: Number(numberToDisplay)});
 }
 
 performOperation(e){
@@ -62,17 +65,17 @@ performOperation(e){
 
 handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, operatorSign){
   if (this.state.prevOperator === "+"){
-    let newComputedNumber = this.state.computedNumber + Number(this.state.displayedNumber) 
+    let newComputedNumber = this.state.computedNumber + this.state.displayedNumber; 
     this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: operatorSign})
   } else if (this.state.prevOperator === "-"){
-    let newComputedNumber = this.state.computedNumber - Number(this.state.displayedNumber) 
+    let newComputedNumber = this.state.computedNumber - this.state.displayedNumber; 
     this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: operatorSign})
   }else if (this.state.prevOperator === "x"){
-    let newlyComputedNumber = Number(this.state.displayedNumber) * this.state.computedNumber;
+    let newlyComputedNumber = this.state.displayedNumber * this.state.computedNumber;
     let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
     this.setState({[operatorNameAssociatedWithSignClicked]: true, computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, prevOperator: operatorSign, previousComputedNumber:  0})
   }else if (this.state.prevOperator === "÷"){
-    let newlyComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) ;
+    let newlyComputedNumber = this.state.computedNumber / this.state.displayedNumber ;
     let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
     this.setState({[operatorNameAssociatedWithSignClicked]: true, computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber,  prevOperator: operatorSign, previousComputedNumber:  0})
   }
@@ -80,14 +83,14 @@ handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, operatorSign
 
 handleMultiplicationAndDivision(operatorNameAssociatedWithSignClicked, operatorSign){
   if (this.state.prevOperator === "+"){
-    this.setState({[operatorNameAssociatedWithSignClicked]: true, computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  this.state.computedNumber, prevOperator: operatorSign})
+    this.setState({[operatorNameAssociatedWithSignClicked]: true, computedNumber: this.state.displayedNumber, previousComputedNumber:  this.state.computedNumber, prevOperator: operatorSign})
   } else if (this.state.prevOperator === "-"){
-    this.setState({[operatorNameAssociatedWithSignClicked]: true,  computedNumber: - Number(this.state.displayedNumber), previousComputedNumber: this.state.computedNumber,prevOperator: operatorSign})
+    this.setState({[operatorNameAssociatedWithSignClicked]: true,  computedNumber: - this.state.displayedNumber, previousComputedNumber: this.state.computedNumber,prevOperator: operatorSign})
   } else if (this.state.prevOperator === "x"){
-    let newComputedNumber = this.state.computedNumber * Number(this.state.displayedNumber) 
+    let newComputedNumber = this.state.computedNumber * this.state.displayedNumber 
     this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: operatorSign})
   } else if (this.state.prevOperator === "÷"){
-    let newComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) 
+    let newComputedNumber = this.state.computedNumber / this.state.displayedNumber 
     this.setState({[operatorNameAssociatedWithSignClicked]: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: operatorSign})
   }
 }
@@ -98,8 +101,14 @@ findOperatorNameAssociatedWithSign(operatorClicked){
 
 displayDecimal(){
   let splitDecimalNumberOnDot = String(this.state.displayedNumber).split(".");
-  return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1]
+  return Number(splitDecimalNumberOnDot[0]).toLocaleString() + "." + splitDecimalNumberOnDot[1];
 } 
+
+handleDecimal(){
+  this.setState((prevState) => {
+    return {displayedNumber: prevState.displayedNumber + "."}
+  })
+}
 
 render(){
   const customButtons = ["AC", "+/-", "%"];
