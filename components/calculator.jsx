@@ -19,6 +19,7 @@ export default class Calculator extends React.Component{
     this.handleNumbers = this.handleNumbers.bind(this);
     this.handleDecimal = this.handleDecimal.bind(this);
     this.performOperation = this.performOperation.bind(this);
+    this.handleCustomButtons = this.handleCustomButtons.bind(this);
     this.numbers = ["7", "4", "1", "8", "5", "2", "9", "6", "3"];
     this.operators = {division: "÷", multiplication:"x", subtraction:"-", addition: "+", equals:"="};
   }
@@ -110,6 +111,20 @@ handleDecimal(){
   })
 }
 
+handleCustomButtons(e){
+  if (e.target.innerHTML === "AC"){
+    this.setState({displayedNumber: 0, 
+      computedNumber: null, 
+      addition: false, 
+      subtraction: false, 
+      division: false, 
+      multiplication: false, 
+      prevOperator: null,
+      previousComputedNumber: 0
+    });
+  }
+}
+
 render(){
   const customButtons = ["AC", "+/-", "%"];
   const isDecimal = String(this.state.displayedNumber).includes(".");
@@ -123,7 +138,7 @@ render(){
       <div className="calculator-board">
         
         <section className="non-operators-section">
-          <ul className="custom-operators">
+          <ul className="custom-operators" onClick={this.handleCustomButtons}>
             {customButtons.map((customButton) => {
               return (
                 <button key={customButton}>
@@ -150,7 +165,7 @@ render(){
             <button onClick={this.handleDecimal}>.</button>
           </ul>
         </section>
-
+        
         <ul className="operators-section" onClick={this.performOperation}> 
           {Object.keys(this.operators).map((operator) => {
             return (
