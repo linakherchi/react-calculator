@@ -100,15 +100,16 @@ performOperation(e){
 
         let newlyComputedNumber = Number(this.state.displayedNumber) * this.state.computedNumber;
         let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
-        console.log(this.state.previousComputedNumber)
-        console.log("newlyComputedNumber", newlyComputedNumber)
-        console.log("newlyDisplayedNumber",newlyDisplayedNumber)
+
  
         this.setState({addition: true, prevOperator: "+", computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, previousComputedNumber:  0})
         
       }else if (this.state.prevOperator === "÷"){
-        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber / Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
-        this.setState({addition: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "+"})
+        let newlyComputedNumber = this.state.computedNumber / Number(this.state.displayedNumber) ;
+        let newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
+
+        console.log(newlyDisplayedNumber)
+        this.setState({addition: true, prevOperator: "+", computedNumber: newlyDisplayedNumber, displayedNumber: newlyDisplayedNumber, previousComputedNumber:  0})
       }
     }
       
@@ -146,8 +147,7 @@ performOperation(e){
       } else if (this.state.prevOperator === "-"){
         let newlyComputedNumber = this.state.computedNumber - Number(this.state.displayedNumber)
         let newlyPreviousComputedNumber = newlyComputedNumber - (- Number(this.state.displayedNumber))
-        console.log("newlyPreviousComputedNumber", newlyPreviousComputedNumber)
-        console.log("computedNumber",- Number(this.state.displayedNumber))
+
         this.setState({multiplication: true,  computedNumber: - Number(this.state.displayedNumber), previousComputedNumber: newlyPreviousComputedNumber,prevOperator: "x"})
       } else if (this.state.prevOperator === "x"){
         let newComputedNumber = this.state.computedNumber ? this.state.computedNumber * Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
@@ -163,8 +163,9 @@ performOperation(e){
       this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
     } else {
       if (this.state.prevOperator === "+"){
-        let newComputedNumber = this.state.computedNumber ? this.state.computedNumber + Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
-        this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
+        let newlyComputedNumber = Number(this.state.displayedNumber) + this.state.computedNumber;
+        let newlyPreviousComputedNumber = newlyComputedNumber - (Number(this.state.displayedNumber))
+        this.setState({division: true,  computedNumber: Number(this.state.displayedNumber), previousComputedNumber:  newlyPreviousComputedNumber, prevOperator: "÷"})
       } else if (this.state.prevOperator === "-"){
         let newComputedNumber = this.state.computedNumber ? this.state.computedNumber - Number(this.state.displayedNumber) : Number(this.state.displayedNumber)
         this.setState({division: true, displayedNumber: newComputedNumber, computedNumber: newComputedNumber, prevOperator: "÷"})
