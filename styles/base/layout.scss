@@ -15,7 +15,6 @@
         width: 20vw;
         border-radius: 15px;
         padding: 2vh 1vw 1vh 1vw;
-        // border: solid 2px white;
 
         .calculator-screen{
             color: $white;
@@ -23,9 +22,7 @@
             justify-content: flex-end;
             align-items: center;
             height: 20%;
-            // border: solid 2px white;
             font-size: 50px;
-            // font-size: 2.8vw;
         }
 
         .calculator-board{
@@ -68,21 +65,6 @@
 
                 .one-to-nine-numbers{
                     height: 60%;
-                }
-
-                .outliers{
-                    height: 20%;
-                    display: flex;
-                    justify-content: space-around;
-
-                    button:active{
-                        background-color: $light-gray;
-                    }
-                    
-                    #outlier-zero{
-                        width: 9vw;
-                        border-radius: 30px;
-                    }
                 }
             }
         }

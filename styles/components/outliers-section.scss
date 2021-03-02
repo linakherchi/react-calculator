@@ -1,0 +1,14 @@
+.outliers{
+    height: 20%;
+    display: flex;
+    justify-content: space-around;
+
+    button:active{
+        background-color: $light-gray;
+    }
+    
+    #outlier-zero{
+        width: 9vw;
+        border-radius: 30px;
+    }
+}
