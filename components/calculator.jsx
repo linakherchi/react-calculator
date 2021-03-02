@@ -159,8 +159,8 @@ render(){
           <ul className="one-to-nine-numbers" onClick={this.handleNumbers}>
             {this.numbers.map(number => {
               return (
-                <button key={number}>
-                  <NumberButton key={number} number={number}/>
+                <button key={number} id="number-button">
+                  <NumberButton key={number} number={number} />
                 </button>  
               )
             })}

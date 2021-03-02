@@ -42,19 +42,20 @@
 
             .non-operators-section {
                 width: 75%;
-                // border: solid blue 2px;
                 display: flex;
                 flex-direction: column;
 
                 .custom-operators{
                     height: 20%;
-                    // border: pink solid 2px; 
                     display: flex;
                     justify-content: space-evenly;
 
                     button {
                         background-color: $light-gray;
                         color: $black;
+                    }
+                    button:active{
+                        background-color: $white;
                     }
                 }
 
@@ -67,19 +68,25 @@
                     button {
                         background-color: $dark-liver;
                     }
+
+                    button:active{
+                        background-color: $light-gray;
+                    }
                 }
 
                 .one-to-nine-numbers{
                     height: 60%;
-                    // border: pink solid 2px;
                 }
 
                 .outliers{
                     height: 20%;
-                    // border: pink solid 2px;
                     display: flex;
                     justify-content: space-around;
 
+                    button:active{
+                        background-color: $light-gray;
+                    }
+                    
                     #outlier-zero{
                         width: 9vw;
                         border-radius: 30px;
@@ -94,7 +101,6 @@ button {
     border-radius: 50%;
     width: 4.5vw;
     height: 7.5vh;
-    // font-size: 2vw;
     font-size: 30px;
     font-weight: 400;
     font-family: $helvetica; 

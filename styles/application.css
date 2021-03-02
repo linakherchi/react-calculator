@@ -74,6 +74,8 @@ input {
           #root .calculator .calculator-board .non-operators-section .custom-operators button {
             background-color: #D4D4D2;
             color: black; }
+          #root .calculator .calculator-board .non-operators-section .custom-operators button:active {
+            background-color: white; }
         #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
           display: flex;
           flex-wrap: wrap;
@@ -81,12 +83,16 @@ input {
           justify-content: space-around; }
           #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers button {
             background-color: #505050; }
+          #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers button:active {
+            background-color: #D4D4D2; }
         #root .calculator .calculator-board .non-operators-section .one-to-nine-numbers {
           height: 60%; }
         #root .calculator .calculator-board .non-operators-section .outliers {
           height: 20%;
           display: flex;
           justify-content: space-around; }
+          #root .calculator .calculator-board .non-operators-section .outliers button:active {
+            background-color: #D4D4D2; }
           #root .calculator .calculator-board .non-operators-section .outliers #outlier-zero {
             width: 9vw;
             border-radius: 30px; }
