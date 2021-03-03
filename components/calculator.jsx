@@ -222,7 +222,7 @@ displayResult(){
   if (String(this.state.displayedNumber).length > 9){
     return this.state.displayedNumber.toExponential(1);
   } else {
-    return this.state.displayedNumber.toLocaleString()
+    return this.state.displayedNumber.toLocaleString();
   }
 }
 
