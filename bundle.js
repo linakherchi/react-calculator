@@ -463,7 +463,9 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
         }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_operator_button__WEBPACK_IMPORTED_MODULE_1__["default"], {
           operator: _this3.operators[operator]
         }));
-      }))));
+      }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
+        className: "credentials"
+      }, "Made by Lina Kherchi"));
     }
   }]);
 

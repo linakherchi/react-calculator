@@ -62,6 +62,12 @@ input {
         width: 75%;
         display: flex;
         flex-direction: column; }
+  #root .credentials {
+    margin: 0 auto;
+    padding: 2vh;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
 
 button {
   border-radius: 50%;
@@ -122,3 +128,5 @@ button {
     color: black; }
   .custom-operators button:active {
     background-color: white; }
+
+/*# sourceMappingURL=application.css.map */

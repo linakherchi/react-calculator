@@ -258,6 +258,7 @@ render(){
         </ul>
         
       </div>
+      <h1 className="credentials">Made by Lina Kherchi</h1>
     </section>
     )
   }
