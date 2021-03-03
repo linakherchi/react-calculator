@@ -175,12 +175,20 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
         var operatorAlreadyActivated = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division || this.state.equals;
 
         if (operatorAlreadyActivated) {
+          // If one of the operators is already activated - I want to replace whatever is in 
+          // the calculator screen with the new number that I want to type
+          // I also want to remove the CSS on the last operator's name to know longer show that it is activated
           this.displayNewNumberOnCalculatorScreenAndTurnOffOperator(e.target.innerHTML);
         } else {
+          // If no operator was already activated, I am next to two cases: 
+          // If the previously displayed number displayed is 0, I just replace it with the number I am typing
+          // Otherwise, I concat to it the new number that I am typing
+          // One edge case handled here is if the length of the previously displayed number is 9, I no longer 
+          // want to allow the user to type to not write outside of the calculator screen
           this.setState(function (prevState) {
             if (String(prevState.displayedNumber).length === 9) return;
 
-            if (prevState.displayedNumber === 0 && "" + prevState.displayedNumber.length === 1) {
+            if (prevState.displayedNumber === 0) {
               return {
                 displayedNumber: Number(e.target.innerHTML)
               };
@@ -199,7 +207,9 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
       var _this$setState;
 
       var operatorName = this.findOperatorNameAssociatedWithSign(this.state.prevOperator);
-      this.setState((_this$setState = {}, _defineProperty(_this$setState, operatorName, false), _defineProperty(_this$setState, "displayedNumber", Number(numberToDisplay)), _this$setState));
+      this.setState((_this$setState = {}, _defineProperty(_this$setState, operatorName, false), _defineProperty(_this$setState, "displayedNumber", Number(numberToDisplay)), _this$setState)); // One specific case is if the last operator is an equal and I am trying to type in a new number
+      // I want to not only replace the displayed number but reset the computed number & previousOperator
+      // to start a new calculation from scratch
 
       if (operatorName === "equals") {
         this.setState({
@@ -211,15 +221,17 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "performOperation",
     value: function performOperation(e) {
+      // I do not want to allow the user to type in 2 operators consecutively and this is why I 
+      // immediately return
       var operatorAlreadyActivated = this.state.addition || this.state.subtraction || this.state.multiplication || this.state.division;
-      if (operatorAlreadyActivated) return;
+      if (operatorAlreadyActivated) return; // This really just changes the CSS of the equal sign when I immediately click on a difference operator
 
       if (this.state.equals) {
         this.setState({
-          equals: false
+          equals: false,
+          prevOperator: null
         });
-      } // If there was no previous operator, I do not want to perform an operator. Instead, I just want to display a new number
-
+      }
 
       var operatorNameAssociatedWithSignClicked = this.findOperatorNameAssociatedWithSign(e.target.innerHTML);
       var computedNumber;
@@ -227,9 +239,21 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
       if (!this.state.prevOperator) {
         var _this$setState2;
 
+        // If there was no previous operator, I do not want to perform an operation. Instead, I just want 
+        //  account for a new number in my computedNumber state key.
+        // I also want to register the operator I just clicked on as a previous operator because that will be 
+        // needed to update my computed number on a next operator click.
         computedNumber = Number(this.state.displayedNumber);
-        this.setState((_this$setState2 = {}, _defineProperty(_this$setState2, operatorNameAssociatedWithSignClicked, true), _defineProperty(_this$setState2, "displayedNumber", computedNumber), _defineProperty(_this$setState2, "computedNumber", computedNumber), _defineProperty(_this$setState2, "prevOperator", e.target.innerHTML), _this$setState2));
-      }
+        this.setState((_this$setState2 = {}, _defineProperty(_this$setState2, operatorNameAssociatedWithSignClicked, true), _defineProperty(_this$setState2, "computedNumber", computedNumber), _defineProperty(_this$setState2, "prevOperator", e.target.innerHTML), _this$setState2));
+      } // If there was already an operator clicked on earlier such as: 3 + 4 -
+      // I will need to calculate the computed number: 3 + 4, and account for - as the new prevOperator
+      // As you can see, I compute and display a new number only on a new operator click to be in sync
+      // with the real Apple Calculator.
+      // Simple said, the 3 + 4 result displayed (7) depends on what operator I am going to click on 
+      // later. i.e if I click on + or - => I will display 7
+      // If I clicked on * or /, I will display 4 and the end result is going to be 3 + (4 */÷ ...),
+      // so I need to separate the 3 from the new operator I am trying to implement
+
 
       if (e.target.innerHTML === "+" || e.target.innerHTML === "-" || e.target.innerHTML === "=") {
         this.handleAdditionAndSubtraction(operatorNameAssociatedWithSignClicked, e.target.innerHTML);
@@ -243,23 +267,37 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
       if (this.state.prevOperator === "+") {
         var _this$setState3;
 
+        // example, if I did: 4 + 3 +, I want to display 7, so in here, I am making the sum of 4 + 3 
+        // & displaying it. I am also taking into account the new operator I just typed (+) and saving
+        // it in the prevOperator key because I will need it to keep chaining operations
         var newComputedNumber = this.state.computedNumber + this.state.displayedNumber;
         this.setState((_this$setState3 = {}, _defineProperty(_this$setState3, operatorNameAssociatedWithSignClicked, true), _defineProperty(_this$setState3, "displayedNumber", newComputedNumber), _defineProperty(_this$setState3, "computedNumber", newComputedNumber), _defineProperty(_this$setState3, "prevOperator", operatorSign), _this$setState3));
       } else if (this.state.prevOperator === "-") {
         var _this$setState4;
 
+        // 4 - 3 + 
         var _newComputedNumber = this.state.computedNumber - this.state.displayedNumber;
 
         this.setState((_this$setState4 = {}, _defineProperty(_this$setState4, operatorNameAssociatedWithSignClicked, true), _defineProperty(_this$setState4, "displayedNumber", _newComputedNumber), _defineProperty(_this$setState4, "computedNumber", _newComputedNumber), _defineProperty(_this$setState4, "prevOperator", operatorSign), _this$setState4));
       } else if (this.state.prevOperator === "x") {
         var _this$setState5;
 
+        // In this case,(i.e 4 * 3 +) I just want to multiply the newly typed in number with whatever was registered earlier
+        // but I also introduce a new variable called this.state.previousComputedNumber
+        // This variable is needed in case I have the corresponding case for example: 
+        // 4 * 3 + 5 * 4 - 8 * 5
+        // 1. 4 * 3 + => previously computed number is 0, newlyComputed/displayednumber is 12, prevOperator is + 
+        // 2. 4 * 3 + 5 * => Here and in order to respect the priority of operations, I want to separate 4 * 3 
+        // and save it in a variable, and start from scratch with 5 *, when I complete my operation that starts at 5
+        // with a +, -, or =, then I take the previouslyComputed number and add it to the new chain of multiplications/
+        //divisions I just made
         var newlyComputedNumber = this.state.displayedNumber * this.state.computedNumber;
         var newlyDisplayedNumber = newlyComputedNumber + this.state.previousComputedNumber;
         this.setState((_this$setState5 = {}, _defineProperty(_this$setState5, operatorNameAssociatedWithSignClicked, true), _defineProperty(_this$setState5, "computedNumber", newlyDisplayedNumber), _defineProperty(_this$setState5, "displayedNumber", newlyDisplayedNumber), _defineProperty(_this$setState5, "prevOperator", operatorSign), _defineProperty(_this$setState5, "previousComputedNumber", 0), _this$setState5));
       } else if (this.state.prevOperator === "÷") {
         var _this$setState6;
 
+        // similar logic as multiplication
         var _newlyComputedNumber = this.state.computedNumber / this.state.displayedNumber;
 
         var _newlyDisplayedNumber = _newlyComputedNumber + this.state.previousComputedNumber;
@@ -268,6 +306,7 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
       } else if (this.state.prevOperator === "=") {
         var _this$setState7;
 
+        // This allows me to chain operations even after an equal sign was clicked on
         this.setState((_this$setState7 = {}, _defineProperty(_this$setState7, operatorNameAssociatedWithSignClicked, true), _defineProperty(_this$setState7, "prevOperator", operatorSign), _this$setState7));
       }
     }
@@ -277,10 +316,15 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
       if (this.state.prevOperator === "+") {
         var _this$setState8;
 
+        // e.g 4 + 3 * // As soon as I click *, I want to separate 4 to be the previously computed number to respect
+        // the priority of operations 
         this.setState((_this$setState8 = {}, _defineProperty(_this$setState8, operatorNameAssociatedWithSignClicked, true), _defineProperty(_this$setState8, "computedNumber", this.state.displayedNumber), _defineProperty(_this$setState8, "previousComputedNumber", this.state.computedNumber), _defineProperty(_this$setState8, "prevOperator", operatorSign), _this$setState8));
       } else if (this.state.prevOperator === "-") {
         var _this$setState9;
 
+        // similar to -, but here the computed number is negative 
+        // 10 - 4 * 2 => 10 is prevComputed number, 4 is displayed number, computed number is -4 so that when multiplication
+        // ends I would have taken into account that I was trying to subtract beforehand
         this.setState((_this$setState9 = {}, _defineProperty(_this$setState9, operatorNameAssociatedWithSignClicked, true), _defineProperty(_this$setState9, "computedNumber", -this.state.displayedNumber), _defineProperty(_this$setState9, "previousComputedNumber", this.state.computedNumber), _defineProperty(_this$setState9, "prevOperator", operatorSign), _this$setState9));
       } else if (this.state.prevOperator === "x") {
         var _this$setState10;
@@ -304,6 +348,8 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
     value: function findOperatorNameAssociatedWithSign(operatorClicked) {
       var _this2 = this;
 
+      // This is just finding the operator name when a sign is passed as an input
+      // an object was created under this.operators where operator keys map to operators names
       return Object.keys(this.operators).find(function (operator) {
         return _this2.operators[operator] === operatorClicked;
       });
@@ -311,6 +357,8 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "displayDecimal",
     value: function displayDecimal() {
+      // This function is called when a decimal number is about to be displayed to ensure that only 9 digits are in the
+      // calculator screen
       var splitDecimalNumberOnDot = String(this.state.displayedNumber).split(".");
 
       if (splitDecimalNumberOnDot[0].length > 9) {
@@ -322,6 +370,7 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleDecimal",
     value: function handleDecimal() {
+      // this is just adding a `.` to the displayed number key when I want to make my number a decimal
       this.setState(function (prevState) {
         return {
           displayedNumber: prevState.displayedNumber + "."
@@ -331,6 +380,10 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "handleCustomButtons",
     value: function handleCustomButtons(e) {
+      // This function handles the 3 buttons at the top left of the calculator
+      // 1. resets everything on AC click
+      // 2. turns number to either positive or negative depending on current state
+      // 3. turns number to percentage
       if (e.target.innerHTML === "AC") {
         this.setState({
           displayedNumber: 0,
@@ -362,6 +415,11 @@ var Calculator = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "displayResult",
     value: function displayResult() {
+      // This is displaying a number when it is not a decimal
+      // If the resulting number is very big, I want to have the +e sign to not have numbers
+      // outside of the calculator screen, but also to respect whatever the Apple calculator is doing
+      // If the number is less than 9 digits and is not a decimal, I just want to make sure it is 
+      // separated by commas at every 3 digits
       if (String(this.state.displayedNumber).length > 9) {
         return this.state.displayedNumber.toExponential(1);
       } else {
